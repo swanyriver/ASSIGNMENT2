@@ -15,15 +15,82 @@
 
 #include <iostream>
 #include <string>
+#include <list>
 #include "myFunctions.h"
 
 using namespace std;
 
-void oneLetterAtATime(){
-	//TODO add parameter, use safe string get
+void oneLetterAtATime(string my_str);
+
+void formatName();
+
+int main(){
+	//problem one //oneLetterAtATime(swansonInput::getString("please enter a string: "));
+
+	//problem two
+	formatName();
+
+}
+
+//////////////////////////////////////
+///PROBLEM TWO////////////////////////
+//////////////////////////////////////
+
+string getProperName();
+
+
+void formatName(){
+	//formatName local Variables
+	list<string> namesSeperated;
+	string fullNameUnformated;
+	string firstName, middleName, LastName;
+	char middleInitial;
+
+	fullNameUnformated = getProperName();
+	cout << "thank you, your name is:" << fullNameUnformated << endl;
+
+	swansonString::seperateWords(fullNameUnformated, namesSeperated);
+
+	cout << "done Seperating" << endl;
+
+	while( !namesSeperated.empty() ){
+		cout << namesSeperated.front() << "-";
+		namesSeperated.pop_front();
+
+	}
+
+}
+
+string getProperName(){
+	char permitedChars[] = {' ','.'};
+	string name;
+
+	name = swansonInput::getString("Please tell me your full name: ");
+
+	while(!swansonString::allLetters(name,permitedChars,2)){
+		cout << "Im sorry, try to keep it to only letters";
+		name = swansonInput::getString("Please tell me your full name: ");
+	}
+
+	return name;
+
+}
+
+//////////////////////////////////////
+///PROBLEM ONE////////////////////////
+//////////////////////////////////////
+
+void oneLetterAtATime(string my_str){
+
+	/********************************************************
+	******Function Paramater-ized for ease of encapsulation
+	********************************************************
+	//TODO add parameter, use safe string get // 6/29 13:15
 	cout << "GIVE ME A STRING";
 	string my_str;
-	cin >> my_str;
+	//cin >> my_str; //changed to getLine 6/29 13:00 as per step g.
+	//getline(cin,my_str); //allowed for multiple word input 6/29 13:10
+	 **********************************************************/
 
 	if(my_str.empty()){  //TODO check for null pointer
 		cout << endl << "there is something wrong with this string";
@@ -64,6 +131,4 @@ void oneLetterAtATime(){
 }
 
 
-int main(){
-	oneLetterAtATime();
-}
+
