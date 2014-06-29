@@ -15,21 +15,9 @@
 
 #include <iostream>
 #include <string>
+#include "myFunctions.h"
 
 using namespace std;
-
-bool isALetter(char character){
-	if( ( character >='a' && character <= 'z' )
-	  ||( character >='A' && character <= 'Z' ) )return true;
-	else return false;
-}
-
-bool allLetters(string letterString){
-	for ( int i = 0; i < letterString.length(); i++ ) {
-		if(!isALetter(letterString.at(i))) return false;
-	}
-	return true;
-}
 
 void oneLetterAtATime(){
 	//TODO add parameter, use safe string get
@@ -52,7 +40,7 @@ void oneLetterAtATime(){
 
 	cout << endl << "here it is backwards: ";
 	for( int i = my_str.length()-1; i >= 0; i--){
-		cout << my_str.at(i) << ((i!=my_str.length()-1) ? "-" : "");
+		cout << my_str.at(i) << ((i!=0) ? "-" : "");
 	}
 
 
@@ -62,20 +50,18 @@ void oneLetterAtATime(){
 
 	int numLetters=0;
 	for( int i = 0; i < my_str.length(); i++){
-		if ( isALetter(my_str.at(i))) {
+		if ( swansonString::isALetter(my_str.at(i))) {
 			numLetters++;
 		}
 	}
 	cout << endl << "this string has " << numLetters << " letters" << endl;
 
-	cout << "by a loop this string" << ( (allLetters(my_str) ? " is " : " is not ") )<< "all letters";
+	cout << "by a loop this string" << ( (swansonString::allLetters(my_str) ? " is " : " is not ") )<< "all letters";
 	cout << endl <<"by a length comparison this string"
 		 << ( (my_str.length()==numLetters ? " is " : " is not ") )<< "all letters";
 
 
 }
-
-
 
 
 int main(){
