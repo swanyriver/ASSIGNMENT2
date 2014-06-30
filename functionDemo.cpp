@@ -27,9 +27,10 @@ void formatName();
 void randomNumbers();
 void compareStringsManually();
 void betterRandom();
+void milesPerGallon();
 
 int main(){
-	const int NUMBER_OF_SELECTIONS = 5;
+	const int NUMBER_OF_SELECTIONS = 6;
 	const int PLAY_ALL = NUMBER_OF_SELECTIONS + 1;
 	const int QUIT = NUMBER_OF_SELECTIONS + 2;
 
@@ -47,6 +48,7 @@ int main(){
 				 << endl << "[3] Random Numbers"
 				 << endl << "[4] Compare Strings"
 				 << endl << "[5] Better Random Numbers"
+				 << endl << "[6] Miles Per Gallon from Litters"
 				 << endl << "[10] Demonstrate All Functions"
 				 << endl << "[11] Quit the program";
 
@@ -84,6 +86,10 @@ int main(){
 					prompt = "make more random numbers";
 					betterRandom();
 					break;
+				case 6:
+					prompt = "calculate more mileages";
+					milesPerGallon();
+					break;
 				default:
 					selectionNumber = QUIT;
 					break;
@@ -95,6 +101,19 @@ int main(){
 	}while( selectionNumber != QUIT );
 
 	cout << endl <<"thank you, come again soon" << endl;
+}
+
+//////////////////////////////////////////////
+///PROBLEM FIVE/////MILES PER GALLON//////////
+//////////////////////////////////////////////
+const float GALLON_PER_LITER=0.264179;
+double milesPerGallon(double littersUsed, double milesTraveled);
+void milesPerGallon(){
+	float test = swansonInput::getFloat("give me a valid float");
+	cout << "the float is " << test << " times 3 " << test*3;
+
+	test = swansonInput::getFloat("give me float [2.5-4.6]",2.5,4.6);
+	cout << "the float is " << test << " times 3 " << test*3;
 }
 
 //////////////////////////////////////////////
@@ -116,7 +135,7 @@ void betterRandom(){
 
 int randomInRange(int min, int max);int randomInRange(int min, int max){
 	int random;
-	int range = max-min;
+	int range = max - min + 1;
 	if ( range == 0 ) return min;
 	random = ( rand() % range ) + min;
 	return random;

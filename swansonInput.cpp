@@ -3,6 +3,7 @@
 #include "myFunctions.h"
 #include <climits>
 #include <cstdlib> 
+#include <cfloat>
 
 using std::string;
 using std::cin;
@@ -47,10 +48,7 @@ long int swansonInput::getLong(string prompt, long int rangeMin, long int rangeM
 	long int int_rtrn;
 	int attempts = 0;
 	string parse_string;
-	string::size_type size;
 	bool firstTimeThrough = true;
-
-	//todo allow for intake of negative numbers
 
 	do {
 		if(!firstTimeThrough){
@@ -60,6 +58,8 @@ long int swansonInput::getLong(string prompt, long int rangeMin, long int rangeM
 		firstTimeThrough=false;
 		parse_string = swansonInput::getString(prompt);
 
+		//TODO use errno or HUGE_VAL to check for overflow
+		//TODO change to strtol
 		while( !swansonString::allNumbers(parse_string) || parse_string.empty()){
 			attempts++;
 			if( attempts > MAX_ATTEMPTS ) return 0;
@@ -77,6 +77,51 @@ long int swansonInput::getLong(string prompt, long int rangeMin, long int rangeM
 	return int_rtrn;
 }
 
+//////////////////////////////////////////////floating point input ///////
+float swansonInput::getFloat(string prompt){
+	return getFloat( prompt, FLT_MIN, FLT_MAX);
+}
+float swansonInput::getFloat(string prompt, float rangeMin, float rangeMax){
+	return static_cast<float> ( getDouble( prompt, rangeMin, rangeMax) );
+}
+double swansonInput::getDouble(string prompt){
+	return getDouble( prompt, DBL_MIN, DBL_MAX);
+
+}
+double swansonInput::getDouble(string prompt, double rangeMin, double rangeMax){
+	double double_rtrn;
+	int attempts = 0;
+	string parse_string;
+	bool firstTimeThrough = true;
+
+
+	do {
+		if(!firstTimeThrough){
+			cout << "Please keep the input within these bounds ["
+				 << rangeMin << " - " << rangeMax << "]";
+		}
+		firstTimeThrough=false;
+		parse_string = swansonInput::getString(prompt);
+
+		//TODO use errno or HUGE_VAL to check for overflow
+		while( !swansonString::allNumbersFloat(parse_string) || parse_string.empty()){
+			attempts++;
+			if( attempts > MAX_ATTEMPTS ) return 0;
+
+			cout << "lets try to restrain ourselves to only valid floating point numbers";
+			parse_string = swansonInput::getString(prompt);
+		}
+
+
+		double_rtrn = strtod(parse_string.c_str(),NULL);
+
+
+	} while ( !( double_rtrn >= rangeMin && double_rtrn <= rangeMax ) );
+
+	return double_rtrn;
+}
+
+/////////////////////////////////////////////////////////////////////////
 bool swansonInput::yesNo(string prompt){
 	string yesNoStr;
 

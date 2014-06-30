@@ -11,6 +11,7 @@ class swansonString {
 	static bool isALetter(char character);
 	static bool isANumber(char character);
 	static bool allNumbers(string numberString);
+	static bool allNumbersFloat(string numberString);
 	static bool allLetters(string letterString);
 	static bool allLetters(string letterString, char permitedChars[], int arraySize);
 	static void seperateWords(string myString, list<string>& seperateWords);
@@ -21,10 +22,17 @@ class swansonString {
 class swansonInput {
 	public:
 	static string getString(string prompt);
+
 	static int getInt(string prompt);
 	static int getInt(string prompt, int rangeMax, int rangeMin);
 	static long int getLong(string prompt);
 	static long int getLong(string prompt, long int rangeMin, long int rangeMax);
+
+	static float getFloat(string prompt);
+	static float getFloat(string prompt, float rangeMin, float rangeMax);
+	static double getDouble(string prompt);
+	static double getDouble(string prompt, double rangeMin, double rangeMax);
+
 	static bool yesNo(string prompt);
 
 	private:
