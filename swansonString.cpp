@@ -2,8 +2,6 @@
 #include <list>
 #include "myFunctions.h"
 
-#include <iostream> //temporary
-
 using namespace std;
 
 bool swansonString::isALetter(char character){
@@ -46,7 +44,6 @@ bool swansonString::allNumbersFloat(string numberString){
 		for (int i = 0; i < numberString.length(); i++ ){
 			if ( i != dotLocation ) tempString += numberString.at(i);
 		}
-		cout << "dots removed " << tempString;
 		return allNumbers( tempString );
 	}
 
