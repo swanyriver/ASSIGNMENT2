@@ -55,8 +55,8 @@ int main(){
 				 << endl << "[5] Better Random Numbers"
 				 << endl << "[6] Miles Per Gallon from Litters"
 				 << endl << "[7] Select Winning Finalist"
-				 << endl << "[10] Demonstrate All Functions"
-				 << endl << "[11] Quit the program";
+				 << endl << "[8] DEMONSTRATE ALL FUNCTIONS (from 1-7)"
+				 << endl << "[9] QUIT THIS PROGRAM";
 
 			selectionNumber = swansonInput::getInt("choose by number:",1,NUMBER_OF_SELECTIONS+2);
 		}
@@ -164,6 +164,8 @@ bool finalistContains(int finalistID, int finalistsSelected[], int numSelections
 const float GALLON_PER_LITER=0.264179;
 float milesPerGallon(float littersUsed, float milesTraveled);
 void milesPerGallon(){
+
+	cout << "This piece of code will tell you how many miles per gallon your car gets \nif you measure your gas consumption in litters";
 
 	float milesTraveled = swansonInput::getFloat("How many miles did you travel (xx.xx):");
 	float littersUsed = swansonInput::getFloat("How many litters of gas did you use (xx.xx):");
