@@ -48,7 +48,7 @@ int main(){
 				 << endl << "[10] Demonstrate All Functions"
 				 << endl << "[11] Quit the program";
 
-			selectionNumber = swansonInput::getInt("choose by number:");
+			selectionNumber = swansonInput::getInt("choose by number:",1,NUMBER_OF_SELECTIONS+2);
 		}
 
 

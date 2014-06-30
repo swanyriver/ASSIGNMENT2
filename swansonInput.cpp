@@ -30,29 +30,50 @@ string swansonInput::getString(string prompt){
 }
 
 int swansonInput::getInt(string prompt){
-	int int_rtrn;
+	return getInt(prompt, INT_MIN, INT_MAX);
+}
+
+int swansonInput::getInt(string prompt, int rangeMax, int rangeMin){
+	return static_cast<int>(getLong(prompt, rangeMax, rangeMin));
+}
+
+long int swansonInput::getLong(string prompt){
+	return getLong( prompt, LONG_MIN, LONG_MAX);
+
+}
+long int swansonInput::getLong(string prompt, long int rangeMin, long int rangeMax){
+	long int int_rtrn;
 	int attempts = 0;
 	string parse_string;
 	string::size_type size;
+	bool firstTimeThrough = true;
 
-	parse_string = getString(prompt);
+	//todo allow for intake of negative numbers
 
-	while( !swansonString::allNumbers(parse_string) || parse_string.empty()){
-		attempts++;
-		if( attempts > MAX_ATTEMPTS ) return 0;
+	do {
+		if(!firstTimeThrough){
+			cout << "Please keep the input within these bounds ["
+				 << rangeMin << " - " << rangeMax << "]";
+		}
+		firstTimeThrough=false;
+		parse_string = swansonInput::getString(prompt);
 
-		cout << "lets try to restrain ourselves to only whole numbers";
-		parse_string = getString(prompt);
-	}
+		while( !swansonString::allNumbers(parse_string) || parse_string.empty()){
+			attempts++;
+			if( attempts > MAX_ATTEMPTS ) return 0;
 
-	int_rtrn = std::stoi(parse_string,&size);
+			cout << "lets try to restrain ourselves to only whole numbers";
+			parse_string = swansonInput::getString(prompt);
+		}
 
+
+		int_rtrn = atol(parse_string.c_str());
+
+
+	} while ( !( int_rtrn >= rangeMin && int_rtrn <= rangeMax ) );
 
 	return int_rtrn;
-
 }
-
-
 
 bool swansonInput::yesNo(string prompt){
 	string yesNoStr;

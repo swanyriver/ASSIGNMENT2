@@ -22,7 +22,9 @@ class swansonInput {
 	public:
 	static string getString(string prompt);
 	static int getInt(string prompt);
-	//static int getInt(string prompt, int rangeMax, int rangeMin);
+	static int getInt(string prompt, int rangeMax, int rangeMin);
+	static long int getLong(string prompt);
+	static long int getLong(string prompt, long int rangeMin, long int rangeMax);
 	static bool yesNo(string prompt);
 
 	private:
