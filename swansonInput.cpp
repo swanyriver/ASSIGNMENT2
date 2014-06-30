@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
 #include "myFunctions.h"
+#include <climits>
+#include <cstdlib> 
 
 using std::string;
 using std::cin;
