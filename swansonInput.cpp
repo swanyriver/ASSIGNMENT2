@@ -4,6 +4,7 @@
 #include <climits>
 #include <cstdlib> 
 #include <cfloat>
+#include <errno.h>
 
 using std::string;
 using std::cin;
@@ -69,10 +70,13 @@ long int swansonInput::getLong(string prompt, long int rangeMin, long int rangeM
 		}
 
 
-		int_rtrn = atol(parse_string.c_str());
+		//int_rtrn = atol(parse_string.c_str());  //changed to strtol for overflow erno
+		int_rtrn = strtol(parse_string.c_str() , NULL, 0);
 
+		//if (errno == ERANGE && ( int_rtrn == LONG_MAX || int_rtrn == LONG_MIN ) ) cout << "OVERFLOW";
 
-	} while ( !( int_rtrn >= rangeMin && int_rtrn <= rangeMax ) );
+	} while ( !( int_rtrn >= rangeMin && int_rtrn <= rangeMax )
+			|| (errno == ERANGE && ( int_rtrn == LONG_MAX || int_rtrn == LONG_MIN ) ) );
 
 	return int_rtrn;
 }
@@ -116,7 +120,8 @@ double swansonInput::getDouble(string prompt, double rangeMin, double rangeMax){
 		double_rtrn = strtod(parse_string.c_str(),NULL);
 
 
-	} while ( !( double_rtrn >= rangeMin && double_rtrn <= rangeMax ) );
+	} while ( !( double_rtrn >= rangeMin && double_rtrn <= rangeMax )
+			|| (errno == ERANGE && ( double_rtrn == LONG_MAX || double_rtrn == LONG_MIN ) ));
 
 	return double_rtrn;
 }
