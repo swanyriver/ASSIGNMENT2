@@ -28,9 +28,13 @@ void randomNumbers();
 void compareStringsManually();
 void betterRandom();
 void milesPerGallon();
+void selectFinalist();
+
+//scope of prototype increased used in problem 5 and 7
+int randomInRange(int min, int max);
 
 int main(){
-	const int NUMBER_OF_SELECTIONS = 6;
+	const int NUMBER_OF_SELECTIONS = 7;
 	const int PLAY_ALL = NUMBER_OF_SELECTIONS + 1;
 	const int QUIT = NUMBER_OF_SELECTIONS + 2;
 
@@ -50,6 +54,7 @@ int main(){
 				 << endl << "[4] Compare Strings"
 				 << endl << "[5] Better Random Numbers"
 				 << endl << "[6] Miles Per Gallon from Litters"
+				 << endl << "[7] Select Winning Finalist"
 				 << endl << "[10] Demonstrate All Functions"
 				 << endl << "[11] Quit the program";
 
@@ -91,6 +96,10 @@ int main(){
 					prompt = "calculate more mileages";
 					milesPerGallon();
 					break;
+				case 7:
+					prompt = "select more finalists";
+					selectFinalist();
+					break;
 				default:
 					selectionNumber = QUIT;
 					break;
@@ -105,14 +114,59 @@ int main(){
 }
 
 //////////////////////////////////////////////
-///PROBLEM FIVE/////MILES PER GALLON//////////
+///PROBLEM SEVEN////FINALISTS/////////////////
+//////////////////////////////////////////////
+bool finalistContains(int finalistID, int finalistsSelected[], int numSelectionsMade);
+
+void selectFinalist(){
+	const int NUM_FINALIST = 25;
+	const int NUM_WINNERS = 4;
+	int finalistsSelected[NUM_WINNERS];
+	int nextSelection;
+	int range = NUM_FINALIST;
+
+	cout << endl << "We are about to select " << NUM_WINNERS
+			<< " winners out of " << NUM_FINALIST
+			<< " finalists";
+
+	finalistsSelected[0] = randomInRange(1,range);
+	range--;
+
+	for (int i = 1; i < NUM_WINNERS; ++i) {
+		nextSelection = randomInRange(1,range);
+		range--;
+
+		while(finalistContains(nextSelection,finalistsSelected,i)){
+			nextSelection++;
+			if( nextSelection > NUM_FINALIST) nextSelection = 1;
+		}
+
+		finalistsSelected[i] = nextSelection;
+	}
+
+	cout << endl << "Finalist selected are: ";
+	for (int i = 0; i < NUM_WINNERS; ++i) {
+		cout << finalistsSelected[i] << ( ( i < NUM_WINNERS-1 )? ", ": "" );
+	}
+
+}
+
+bool finalistContains(int finalistID, int finalistsSelected[], int numSelectionsMade){
+	for ( int i = 0 ; i < numSelectionsMade ; i++ ){
+		if ( finalistsSelected[i] == finalistID ) return true;
+	}
+	return false;
+}
+
+//////////////////////////////////////////////
+///PROBLEM SIX//////MILES PER GALLON//////////
 //////////////////////////////////////////////
 const float GALLON_PER_LITER=0.264179;
 float milesPerGallon(float littersUsed, float milesTraveled);
 void milesPerGallon(){
 
-	float milesTraveled = swansonInput::getFloat("How many miles did you travel (x.x):");
-	float littersUsed = swansonInput::getFloat("How many litters of gas did you use (x.x):");
+	float milesTraveled = swansonInput::getFloat("How many miles did you travel (xx.xx):");
+	float littersUsed = swansonInput::getFloat("How many litters of gas did you use (xx.xx):");
 	float milesPerGallonAchieved = milesPerGallon(littersUsed,milesTraveled);
 
 	// Only display two places after the decimal point form Savitch, pg. 31
@@ -135,7 +189,7 @@ float milesPerGallon(float littersUsed, float milesTraveled){
 //////////////////////////////////////////////
 ///PROBLEM FIVE/////BETTER RANDOM NUMBERS/////
 //////////////////////////////////////////////
-int randomInRange(int min, int max);
+
 void betterRandom(){
 	int min, max;
 	int myRandom;
