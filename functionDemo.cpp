@@ -17,6 +17,7 @@
 #include <string>
 #include <list>
 #include <cstdlib>
+#include <climits>
 #include "myFunctions.h"
 
 using namespace std;
@@ -98,10 +99,26 @@ int main(){
 //////////////////////////////////////////////
 ///PROBLEM FIVE/////BETTER RANDOM NUMBERS/////
 //////////////////////////////////////////////
+int randomInRange(int min, int max);
 void betterRandom(){
-	int number;
-	number = swansonInput::getInt("lets test out stoi:");
-	cout << "number returned:" << number << " times 5" << number * 5;
+	int min, max;
+	int myRandom;
+
+	cout << "Tell me a range and I will give you a random number!";
+	min=swansonInput::getInt("What is the lowest number allowed:");
+	max=swansonInput::getInt("What is the highest number allowed:",min,INT_MAX);
+
+	myRandom = randomInRange(min,max);
+
+	cout << endl << "The random number generated is:" << myRandom;
+}
+
+int randomInRange(int min, int max);int randomInRange(int min, int max){
+	int random;
+	int range = max-min;
+	if ( range == 0 ) return min;
+	random = ( rand() % range ) + min;
+	return random;
 }
 
 //////////////////////////////////////////////
