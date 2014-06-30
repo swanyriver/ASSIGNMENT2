@@ -29,9 +29,10 @@ void compareStringsManually();
 void betterRandom();
 
 int main(){
-	const int QUIT = 11;
-	const int PLAY_ALL = 10;
 	const int NUMBER_OF_SELECTIONS = 5;
+	const int PLAY_ALL = NUMBER_OF_SELECTIONS + 1;
+	const int QUIT = NUMBER_OF_SELECTIONS + 2;
+
 	bool playAll = false;
 	int selectionNumber;
 	string prompt;
