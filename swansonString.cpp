@@ -9,6 +9,11 @@ bool swansonString::isALetter(char character){
 	else return false;
 }
 
+bool swansonString::isANumber(char character){
+	if( character >='0' && character <= '9' )return true;
+	else return false;
+}
+
 bool swansonString::allLetters(string letterString){
 	for ( int i = 0; i < letterString.length(); i++ ) {
 		if(!isALetter(letterString.at(i))) return false;
@@ -36,6 +41,13 @@ bool swansonString::allLetters(string letterString, char permitedChars[], int ar
 	return true;
 }
 
+bool swansonString::allNumbers(string numberString){
+	for ( int i = 0; i < numberString.length(); i++ ) {
+			if(!isANumber(numberString.at(i))) return false;
+		}
+		return true;
+}
+
 void swansonString::seperateWords(string myString, list<string>& seperateWords){
 	string currentWord;
 
@@ -58,4 +70,28 @@ void swansonString::seperateWords(string myString, list<string>& seperateWords){
 	}
 	if( !currentWord.empty() ) seperateWords.push_back( currentWord );
 
+}
+
+string swansonString::lowerCase(string caseString){
+	string lowerCaseString = "";
+	for ( int i = 0; i < caseString.length(); i++ ) {
+		if(swansonString::isALetter( caseString.at(i) ) ){
+			if( caseString.at(i) >= 'A' && caseString.at(i) <= 'Z'){
+				lowerCaseString += (caseString.at(i) + ('a'-'A'));
+			} else lowerCaseString += caseString.at(i);
+		}
+	}
+	return lowerCaseString;
+}
+
+string swansonString::upperCase(string caseString){
+	string upperCaseString = "";
+		for ( int i = 0; i < caseString.length(); i++ ) {
+			if(swansonString::isALetter( caseString.at(i) ) ){
+				if( caseString.at(i) >= 'a' && caseString.at(i) <= 'z'){
+					upperCaseString += (caseString.at(i) + ('A'-'a'));
+				} else upperCaseString += caseString.at(i);
+			}
+		}
+		return upperCaseString;
 }
