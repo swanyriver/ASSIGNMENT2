@@ -28,7 +28,7 @@ int main(){
 	//problem one //oneLetterAtATime(swansonInput::getString("please enter a string: "));
 
 	//problem two
-	formatName();
+	while(1)formatName();
 
 }
 
@@ -43,21 +43,38 @@ void formatName(){
 	//formatName local Variables
 	list<string> namesSeperated;
 	string fullNameUnformated;
-	string firstName, middleName, LastName;
+	string firstName, middleName, lastName;
 	char middleInitial;
 
 	fullNameUnformated = getProperName();
-	cout << "thank you, your name is:" << fullNameUnformated << endl;
-
 	swansonString::seperateWords(fullNameUnformated, namesSeperated);
 
-	cout << "done Seperating" << endl;
+	while( !( namesSeperated.size() == 2 || namesSeperated.size() == 3 ) ){
+		cout << endl << "It seems you have given me too few or too many names";
+		fullNameUnformated = getProperName();
+		swansonString::seperateWords(fullNameUnformated, namesSeperated);
+	}
 
-	while( !namesSeperated.empty() ){
-		cout << namesSeperated.front() << "-";
+	if( namesSeperated.size() == 2){
+		firstName = namesSeperated.front();
+		lastName = namesSeperated.back();
+
+		cout << endl << lastName << " " << firstName;
+
+	} else if ( namesSeperated.size() == 3){
+		firstName = namesSeperated.front();
+		namesSeperated.pop_front();
+		middleName = namesSeperated.front();
+		namesSeperated.pop_front();
+		lastName = namesSeperated.front();
 		namesSeperated.pop_front();
 
+		middleInitial=middleName.at(0);
+
+		cout << endl << lastName << " "  << middleInitial << ". "<< firstName;
 	}
+
+
 
 }
 
