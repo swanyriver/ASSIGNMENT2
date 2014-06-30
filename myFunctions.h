@@ -10,9 +10,9 @@ class swansonString {
 	public:
 	static bool isALetter(char character);
 	static bool isANumber(char character);
+	static bool allNumbers(string numberString);
 	static bool allLetters(string letterString);
 	static bool allLetters(string letterString, char permitedChars[], int arraySize);
-	static bool allNumbers(string numberString);
 	static void seperateWords(string myString, list<string>& seperateWords);
 	static string lowerCase(string caseString);
 	static string upperCase(string caseString);

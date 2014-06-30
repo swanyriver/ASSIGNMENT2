@@ -14,6 +14,18 @@ bool swansonString::isANumber(char character){
 	else return false;
 }
 
+bool swansonString::allNumbers(string numberString){
+	int i=0;
+	if (numberString.length()>1
+		&& numberString.at(0) == '-'){
+		i++;
+	}
+	for (; i < numberString.length(); i++ ) {
+			if(!isANumber(numberString.at(i))) return false;
+		}
+		return true;
+}
+
 bool swansonString::allLetters(string letterString){
 	for ( int i = 0; i < letterString.length(); i++ ) {
 		if(!isALetter(letterString.at(i))) return false;
@@ -39,13 +51,6 @@ bool swansonString::allLetters(string letterString, char permitedChars[], int ar
 			}
 	}
 	return true;
-}
-
-bool swansonString::allNumbers(string numberString){
-	for ( int i = 0; i < numberString.length(); i++ ) {
-			if(!isANumber(numberString.at(i))) return false;
-		}
-		return true;
 }
 
 void swansonString::seperateWords(string myString, list<string>& seperateWords){
