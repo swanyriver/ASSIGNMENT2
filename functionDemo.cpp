@@ -108,13 +108,28 @@ int main(){
 ///PROBLEM FIVE/////MILES PER GALLON//////////
 //////////////////////////////////////////////
 const float GALLON_PER_LITER=0.264179;
-double milesPerGallon(double littersUsed, double milesTraveled);
+float milesPerGallon(float littersUsed, float milesTraveled);
 void milesPerGallon(){
-	float test = swansonInput::getFloat("give me a valid float");
-	cout << "the float is " << test << " times 3 " << test*3;
 
-	test = swansonInput::getFloat("give me float [2.5-4.6]",2.5,4.6);
-	cout << "the float is " << test << " times 3 " << test*3;
+	float milesTraveled = swansonInput::getFloat("How many miles did you travel (x.x):");
+	float littersUsed = swansonInput::getFloat("How many litters of gas did you use (x.x):");
+	float milesPerGallonAchieved = milesPerGallon(littersUsed,milesTraveled);
+
+	// Only display two places after the decimal point form Savitch, pg. 31
+	cout.setf(ios::fixed);
+	cout.setf(ios::showpoint);
+	cout.precision(2);
+
+
+	cout << "your cars MPG:" << milesPerGallonAchieved << endl;
+
+}
+
+float milesPerGallon(float littersUsed, float milesTraveled){
+	float gallonsUsed, milesPerGallon;
+	gallonsUsed = littersUsed * GALLON_PER_LITER;
+	milesPerGallon = milesTraveled / gallonsUsed;
+	return milesPerGallon;
 }
 
 //////////////////////////////////////////////
