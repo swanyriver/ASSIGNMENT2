@@ -6,12 +6,16 @@
 #include <cfloat>
 #include <errno.h>
 
+#define RETRY_GET_WORD 	"Lets try that again"
+#define THIS_WORD	 	"Is this the word you wanted to input"
+
 using std::string;
 using std::cin;
 using std::cout;
 using std::endl;
 
 static const int MAX_ATTEMPTS = 6;
+
 
 string swansonInput::getString(string prompt){
 
@@ -31,6 +35,52 @@ string swansonInput::getString(string prompt){
 
 	return str_rtrn;
 
+}
+
+string swansonInput::getOneWord(string prompt){
+	string candaditeWord;
+	bool retry = false;
+
+	do{
+		if( retry ){
+			cout << RETRY_GET_WORD;
+		}
+
+		candaditeWord = swansonInput::getString(prompt);
+
+		list<string> seperatedWords;
+		swansonString::seperateWords(candaditeWord , seperatedWords );
+
+		string allLetterWord;
+		string nextWord;
+		while( !seperatedWords.empty() && allLetterWord.empty() ){
+
+			nextWord = seperatedWords.front();
+			seperatedWords.pop_front();
+
+			if( swansonString::allLetters( nextWord ) ){
+				allLetterWord = nextWord;
+			} else {
+				for (int i = 0; i < nextWord.size() ; i++ )
+					if( swansonString::isALetter(nextWord.at(i) ) )
+						allLetterWord+=nextWord.at(i);
+			}
+		}
+
+		candaditeWord = allLetterWord;
+
+		if( !candaditeWord.empty() ){
+			cout << endl << candaditeWord << endl;
+			if( !swansonInput::yesNo(THIS_WORD) ){
+				candaditeWord.clear();
+			}
+		}
+
+		retry = true;
+
+	}while( candaditeWord.empty() );
+
+	return candaditeWord;
 }
 
 int swansonInput::getInt(string prompt){

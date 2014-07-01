@@ -22,6 +22,7 @@ class swansonString {
 class swansonInput {
 	public:
 	static string getString(string prompt);
+	static string getOneWord(string prompt);
 
 	static int getInt(string prompt);
 	static int getInt(string prompt, int rangeMax, int rangeMin);
@@ -34,9 +35,15 @@ class swansonInput {
 	static double getDouble(string prompt, double rangeMin, double rangeMax);
 
 	static bool yesNo(string prompt);
+};
 
-	private:
-	//static bool intOverflow(string numString);
+class swansonUtil {
+	public:
+	static bool contains(long int var, long int values[], int range);
+	static bool contains(int var, int values[], int range);
+	static bool contains(float var, float values[], int range);
+	static bool contains(double var, double values[], int range);
+	static bool contains(bool var, bool values[], int range);
 };
 
 #endif /* MYFUNCTIONS_H_ */
