@@ -30,7 +30,6 @@ void compareStringsManually();
 void betterRandom();
 void milesPerGallon();
 void selectFinalist();
-void selectFinalstRev2();
 
 //scope of prototype increased used in problem 5 and 7
 int randomInRange(int min, int max);
@@ -122,8 +121,8 @@ bool finalistContains(int finalistID, int finalistsSelected[], int numSelections
 void insertElement ( int val, int sortArray[], int numHolding);
 
 void selectFinalist(){
-	const int NUM_FINALIST = 60;
-	const int NUM_WINNERS = 30;
+	const int NUM_FINALIST = 25;
+	const int NUM_WINNERS = 4;
 	int finalistsSelected[NUM_WINNERS];
 	int nextSelection;
 	int range = NUM_FINALIST;
@@ -142,27 +141,27 @@ void selectFinalist(){
 
 		selectionsList.clear();
 
-		cout << endl << i << " in:" << nextSelection << " to:"; //debug
+		//cout << endl << i << " in:" << nextSelection << " to:"; //debug
 		for (int j = 0; j < i; j++) {
 			selectionsList.push_back(finalistsSelected[j]);
-			//cout << finalistsSelected[j] << ",";
-			cout << selectionsList.back() << ",";
+			//cout << finalistsSelected[j] << ","; //debug
+			//cout << selectionsList.back() << ","; //debug
 		}
 
-		cout << " " << selectionsList.size() << " numbers starting with (" << selectionsList.front() << ") ";
+		//cout << " " << selectionsList.size() << " numbers starting with (" << selectionsList.front() << ") "; //debug
 
 		do{
 			int increment = 0;
 			while ( !selectionsList.empty() && selectionsList.front() <= nextSelection){
 				increment++;
 				selectionsList.pop_front();
-				cout << "+"; //debug
+				//cout << "+"; //debug
 			}
-			cout << "/";
+			//cout << "/"; //debug
 			nextSelection += increment;
 		} while ( !selectionsList.empty() && selectionsList.front() <= nextSelection);
 
-		cout << " out:" << nextSelection;
+		//cout << " out:" << nextSelection; //debug
 
 		//finalistsSelected[i] = nextSelection;
 		insertElement(nextSelection,finalistsSelected,i);
@@ -172,42 +171,6 @@ void selectFinalist(){
 	for (int i = 0; i < NUM_WINNERS; ++i) {
 		cout << finalistsSelected[i] << ( ( i < NUM_WINNERS-1 )? ", ": "" );
 	}
-
-	/*finalistsSelected[0] = randomInRange(1,range);
-	range--;
-
-	for (int i = 1; i < NUM_WINNERS; ++i) {
-		nextSelection = randomInRange(1,range);
-		range--;
-
-		while(finalistContains(nextSelection,finalistsSelected,i)){
-			nextSelection++;
-			if( nextSelection > NUM_FINALIST) nextSelection = 1;
-		}
-
-		finalistsSelected[i] = nextSelection;
-	}
-
-	cout << endl << "Finalist selected are: ";
-	for (int i = 0; i < NUM_WINNERS; ++i) {
-		cout << finalistsSelected[i] << ( ( i < NUM_WINNERS-1 )? ", ": "" );
-	}*/
-
-	/*cout <<endl;
-	for (int i = 0; i < NUM_WINNERS; ++i){
-		finalistsSelected[i] = randomInRange(1,99);
-		cout << finalistsSelected[i] << ",";
-	}
-	int sortedArray[NUM_WINNERS];
-	for (int i = 0; i < NUM_WINNERS; ++i){
-		insertElement(finalistsSelected[i],sortedArray,i);
-	}
-	cout << endl;
-	for (int i = 0; i < NUM_WINNERS; ++i){
-		cout << sortedArray[i] << ",";
-	}*/
-
-
 
 }
 
@@ -231,43 +194,6 @@ void insertElement ( int val, int sortArray[], int numHolding){
 	sortArray [ i ] = val;
 }
 
-void selectFinalstRev2(){
-	const int NUM_FINALIST = 15;
-	const int NUM_WINNERS = 15;
-	int finalistsSelected[NUM_WINNERS];
-	bool alreadySelected[NUM_FINALIST + 1];
-	int nextSelection;
-	int range = NUM_FINALIST;
-
-	cout << endl << "We are about to select " << NUM_WINNERS
-			<< " winners out of " << NUM_FINALIST
-			<< " finalists";
-
-	finalistsSelected[0] = randomInRange(1,range);
-	alreadySelected[ finalistsSelected[0] ]=true;
-	range--;
-
-	for (int i = 1; i < NUM_WINNERS; ++i) {
-		nextSelection = randomInRange(1,range);
-		range--;
-
-		int mappedSelection = 1;
-
-		for(int index = 1; index <= nextSelection ; index++){
-			if(alreadySelected[index]) mappedSelection++;
-			mappedSelection++;
-		}
-		nextSelection = mappedSelection;
-		alreadySelected[mappedSelection]=true;
-
-		finalistsSelected[i] = nextSelection;
-	}
-
-	cout << endl << "Finalist selected are: ";
-	for (int i = 0; i < NUM_WINNERS; ++i) {
-		cout << finalistsSelected[i] << ( ( i < NUM_WINNERS-1 )? ", ": "" );
-	}
-}
 //////////////////////////////////////////////
 ///PROBLEM SIX//////MILES PER GALLON//////////
 //////////////////////////////////////////////
