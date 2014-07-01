@@ -18,6 +18,7 @@
 #include <list>
 #include <cstdlib>
 #include <climits>
+#include <list>
 #include "myFunctions.h"
 
 using namespace std;
@@ -29,6 +30,7 @@ void compareStringsManually();
 void betterRandom();
 void milesPerGallon();
 void selectFinalist();
+void selectFinalstRev2();
 
 //scope of prototype increased used in problem 5 and 7
 int randomInRange(int min, int max);
@@ -117,19 +119,61 @@ int main(){
 ///PROBLEM SEVEN////FINALISTS/////////////////
 //////////////////////////////////////////////
 bool finalistContains(int finalistID, int finalistsSelected[], int numSelectionsMade);
+void insertElement ( int val, int sortArray[], int numHolding);
 
 void selectFinalist(){
-	const int NUM_FINALIST = 25;
-	const int NUM_WINNERS = 4;
+	const int NUM_FINALIST = 60;
+	const int NUM_WINNERS = 30;
 	int finalistsSelected[NUM_WINNERS];
 	int nextSelection;
 	int range = NUM_FINALIST;
+	list<int> selectionsList;
 
 	cout << endl << "We are about to select " << NUM_WINNERS
 			<< " winners out of " << NUM_FINALIST
 			<< " finalists";
 
 	finalistsSelected[0] = randomInRange(1,range);
+	range--;
+
+	for (int i = 1; i < NUM_WINNERS; ++i) {
+		nextSelection = randomInRange(1,range);
+		range--;
+
+		selectionsList.clear();
+
+		cout << endl << i << " in:" << nextSelection << " to:"; //debug
+		for (int j = 0; j < i; j++) {
+			selectionsList.push_back(finalistsSelected[j]);
+			//cout << finalistsSelected[j] << ",";
+			cout << selectionsList.back() << ",";
+		}
+
+		cout << " " << selectionsList.size() << " numbers starting with (" << selectionsList.front() << ") ";
+
+		do{
+			int increment = 0;
+			while ( !selectionsList.empty() && selectionsList.front() <= nextSelection){
+				increment++;
+				selectionsList.pop_front();
+				cout << "+"; //debug
+			}
+			cout << "/";
+			nextSelection += increment;
+		} while ( !selectionsList.empty() && selectionsList.front() <= nextSelection);
+
+		cout << " out:" << nextSelection;
+
+		//finalistsSelected[i] = nextSelection;
+		insertElement(nextSelection,finalistsSelected,i);
+	}
+
+	cout << endl << "Finalist selected are: ";
+	for (int i = 0; i < NUM_WINNERS; ++i) {
+		cout << finalistsSelected[i] << ( ( i < NUM_WINNERS-1 )? ", ": "" );
+	}
+
+	/*finalistsSelected[0] = randomInRange(1,range);
 	range--;
 
 	for (int i = 1; i < NUM_WINNERS; ++i) {
@@ -147,7 +191,23 @@ void selectFinalist(){
 	cout << endl << "Finalist selected are: ";
 	for (int i = 0; i < NUM_WINNERS; ++i) {
 		cout << finalistsSelected[i] << ( ( i < NUM_WINNERS-1 )? ", ": "" );
+	}*/
+
+	/*cout <<endl;
+	for (int i = 0; i < NUM_WINNERS; ++i){
+		finalistsSelected[i] = randomInRange(1,99);
+		cout << finalistsSelected[i] << ",";
 	}
+	int sortedArray[NUM_WINNERS];
+	for (int i = 0; i < NUM_WINNERS; ++i){
+		insertElement(finalistsSelected[i],sortedArray,i);
+	}
+	cout << endl;
+	for (int i = 0; i < NUM_WINNERS; ++i){
+		cout << sortedArray[i] << ",";
+	}*/
+
+
 
 }
 
@@ -158,6 +218,56 @@ bool finalistContains(int finalistID, int finalistsSelected[], int numSelections
 	return false;
 }
 
+void insertElement ( int val, int sortArray[], int numHolding){
+	int i=0;
+	for ( ; i < numHolding ; i++ ){
+		if ( val < sortArray[i] ){
+			for ( int j = numHolding ; j > i ; j-- ){
+				sortArray[ j ] = sortArray [ j - 1 ];
+			}
+			break;
+		}
+	}
+	sortArray [ i ] = val;
+}
+
+void selectFinalstRev2(){
+	const int NUM_FINALIST = 15;
+	const int NUM_WINNERS = 15;
+	int finalistsSelected[NUM_WINNERS];
+	bool alreadySelected[NUM_FINALIST + 1];
+	int nextSelection;
+	int range = NUM_FINALIST;
+
+	cout << endl << "We are about to select " << NUM_WINNERS
+			<< " winners out of " << NUM_FINALIST
+			<< " finalists";
+
+	finalistsSelected[0] = randomInRange(1,range);
+	alreadySelected[ finalistsSelected[0] ]=true;
+	range--;
+
+	for (int i = 1; i < NUM_WINNERS; ++i) {
+		nextSelection = randomInRange(1,range);
+		range--;
+
+		int mappedSelection = 1;
+
+		for(int index = 1; index <= nextSelection ; index++){
+			if(alreadySelected[index]) mappedSelection++;
+			mappedSelection++;
+		}
+		nextSelection = mappedSelection;
+		alreadySelected[mappedSelection]=true;
+
+		finalistsSelected[i] = nextSelection;
+	}
+
+	cout << endl << "Finalist selected are: ";
+	for (int i = 0; i < NUM_WINNERS; ++i) {
+		cout << finalistsSelected[i] << ( ( i < NUM_WINNERS-1 )? ", ": "" );
+	}
+}
 //////////////////////////////////////////////
 ///PROBLEM SIX//////MILES PER GALLON//////////
 //////////////////////////////////////////////
