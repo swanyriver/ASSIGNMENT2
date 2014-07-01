@@ -98,6 +98,12 @@ string playerOnePickWord(){
 
 	string secretString;
 	secretString = swansonInput::getOneWord(ENTER_WORD_STR);
+
+	while( secretString.size()>MAX_WORD_LENGTH ){
+		cout << endl << TOO_LONG;
+		secretString = swansonInput::getOneWord(ENTER_WORD_STR);
+	}
+
 	secretString = swansonString::lowerCase(secretString);
 	return secretString;
 }
