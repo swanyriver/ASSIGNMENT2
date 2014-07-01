@@ -54,9 +54,9 @@ int main(){
 			}
 
 			/////debug string////////
-			cout << numGuessesMade << " " << MAX_GUESSES
+			/*cout << numGuessesMade << " " << MAX_GUESSES
 				<< "  " << numLettersRevealed << "/" << numLettersInWord
-				<< " " << SecretWord << "  " << guessesMade[numGuessesMade-1] << endl;
+				<< " " << SecretWord << "  " << guessesMade[numGuessesMade-1] << endl;*/
 			///////debug string
 
 		}while( numGuessesMade < MAX_GUESSES
