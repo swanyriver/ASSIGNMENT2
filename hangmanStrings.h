@@ -11,9 +11,12 @@ using std::string;
 #define NUM_GUESSES "guesses remaining:"
 #define GUESS_PROMPT "Enter Your Guess:"
 #define ENTERED_BEFORE "You have entered this guess already"
+#define GUESS_CHECK "Do you want to guess that the word is: "
 #define STILL_WRONG "No thats not it, keep trying"
 #define STRING_HINT "Here is what we have discovered about the word so far:"
 #define TOO_LONG "The secret word cannot be that long"
+#define YOU_WIN "\nCONGRADULATIONS YOU WIN!!!!"
+#define YOU_LOSE "\nYOU LOSE\nYou ran out of guesses without guessing the Secret Word,\nBetter luck next time"
 
 
 #endif /* HANGMANSTRINGS_H_ */
