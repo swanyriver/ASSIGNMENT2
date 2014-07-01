@@ -31,8 +31,7 @@ void betterRandom();
 void milesPerGallon();
 void selectFinalist();
 
-//scope of prototype increased used in problem 5 and 7
-int randomInRange(int min, int max);
+
 
 int main(){
 	const int NUMBER_OF_SELECTIONS = 7;
@@ -132,11 +131,11 @@ void selectFinalist(){
 			<< " winners out of " << NUM_FINALIST
 			<< " finalists";
 
-	finalistsSelected[0] = randomInRange(1,range);
+	finalistsSelected[0] = swansonUtil::randomInRange(1,range);
 	range--;
 
 	for (int i = 1; i < NUM_WINNERS; ++i) {
-		nextSelection = randomInRange(1,range);
+		nextSelection = swansonUtil::randomInRange(1,range);
 		range--;
 
 		selectionsList.clear();
@@ -236,18 +235,12 @@ void betterRandom(){
 	min=swansonInput::getInt("What is the lowest number allowed:");
 	max=swansonInput::getInt("What is the highest number allowed:",min,INT_MAX);
 
-	myRandom = randomInRange(min,max);
+	myRandom = swansonUtil::randomInRange(min,max);
 
 	cout << endl << "The random number generated is:" << myRandom;
 }
 
-int randomInRange(int min, int max);int randomInRange(int min, int max){
-	int random;
-	int range = max - min + 1;
-	if ( range == 0 ) return min;
-	random = ( rand() % range ) + min;
-	return random;
-}
+
 
 //////////////////////////////////////////////
 ///PROBLEM FOUR/////COMPARE STRING MANUALLY///

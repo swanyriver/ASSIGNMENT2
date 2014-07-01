@@ -47,6 +47,7 @@ class swansonUtil {
 	static bool contains(bool var, bool values[], int range);
 	static bool contains(string var, string values[], int range);
 	static bool contains(char var, char values[], int range);
+	static int randomInRange(int min, int max);
 };
 
 #endif /* MYFUNCTIONS_H_ */

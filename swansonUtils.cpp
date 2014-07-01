@@ -1,4 +1,5 @@
 #include "myFunctions.h"
+#include <cstdlib>
 
 bool swansonUtil::contains(long int var, long int values[], int range){
 	for ( int i = 0 ; i < range ; i++ ){
@@ -44,6 +45,14 @@ bool swansonUtil::contains(char var, char values[], int range){
 		return false;
 }
 
+
+int swansonUtil::randomInRange(int min, int max){
+	int random;
+	int range = max - min + 1;
+	if ( range == 0 ) return min;
+	random = ( rand() % range ) + min;
+	return random;
+}
 
 /*
 void insertElement ( int val, int sortArray[], int numHolding){

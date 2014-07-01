@@ -24,10 +24,12 @@ string playerOnePickWord();
 string playerTwoGuess();
 void processGuess(string guessString);
 void printResults();
+void clearScreen();
 
 //const int MAX_GUESSES = 10;
 const int MAX_WORD_LENGTH = 12;
 const int LENGTH_OF_ALPHABET = 26;
+const int CLEAR_SCREEN_CHAR_NUM = 6000;
 
 string SecretWord;
 int maxGuesses;
@@ -42,6 +44,8 @@ int main(){
 
 	do{ //restart game
 		initializeVars();
+
+		clearScreen();
 
 		do{ // make guesses
 			string guessString = playerTwoGuess();
@@ -111,6 +115,17 @@ string playerOnePickWord(){
 	secretString = swansonString::lowerCase(secretString);
 	return secretString;
 }
+
+void clearScreen(){
+	char randChar;
+	for(int i = 0 ; i < CLEAR_SCREEN_CHAR_NUM ; i++ ){
+		randChar = swansonUtil::randomInRange( 'A' , 'Z' );
+		cout << randChar;
+	}
+
+	cout << endl << endl;
+}
+
 string playerTwoGuess(){
 	string guessString;
 	bool retry;
