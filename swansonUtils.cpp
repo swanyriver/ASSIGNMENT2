@@ -31,6 +31,18 @@ bool swansonUtil::contains(bool var, bool values[], int range){
 		}
 		return false;
 }
+bool swansonUtil::contains(string var, string values[], int range){
+	for ( int i = 0 ; i < range ; i++ ){
+			if ( values[i] == var ) return true;
+		}
+		return false;
+}
+bool swansonUtil::contains(char var, char values[], int range){
+	for ( int i = 0 ; i < range ; i++ ){
+			if ( values[i] == var ) return true;
+		}
+		return false;
+}
 
 
 /*

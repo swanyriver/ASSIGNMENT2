@@ -7,7 +7,7 @@
 #include <errno.h>
 
 #define RETRY_GET_WORD 	"Lets try that again"
-#define THIS_WORD	 	"Is this the word you wanted to input"
+#define THIS_WORD	 	"Is this what you wanted to input"
 
 using std::string;
 using std::cin;
@@ -47,6 +47,10 @@ string swansonInput::getOneWord(string prompt){
 		}
 
 		candaditeWord = swansonInput::getString(prompt);
+
+		if(swansonString::allLetters( candaditeWord ) ){
+			break;
+		}
 
 		list<string> seperatedWords;
 		swansonString::seperateWords(candaditeWord , seperatedWords );

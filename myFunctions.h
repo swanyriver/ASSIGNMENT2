@@ -45,6 +45,8 @@ class swansonUtil {
 	static bool contains(float var, float values[], int range);
 	static bool contains(double var, double values[], int range);
 	static bool contains(bool var, bool values[], int range);
+	static bool contains(string var, string values[], int range);
+	static bool contains(char var, char values[], int range);
 };
 
 #endif /* MYFUNCTIONS_H_ */
