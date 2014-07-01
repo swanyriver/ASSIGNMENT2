@@ -2,6 +2,7 @@
 #define MYFUNCTIONS_H_
 
 #include <list>
+#include <string>
 
 using namespace std;
 
