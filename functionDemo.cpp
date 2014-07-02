@@ -113,76 +113,27 @@ int main () {
 //////////////////////////////////////////////
 ///PROBLEM SEVEN////FINALISTS/////////////////
 //////////////////////////////////////////////
-bool finalistContains ( int finalistID , int finalistsSelected[] ,
-      int numSelectionsMade );
-void insertElement ( int val , int sortArray[] , int numHolding );
+
 
 void SelectFinalist () {
    const int NUM_FINALIST = 25;
    const int NUM_WINNERS = 4;
    int finalistsSelected[NUM_WINNERS];
-   int nextSelection;
    int range = NUM_FINALIST;
-   list<int> selectionsList;
+
 
    cout << endl << "We are about to select " << NUM_WINNERS
          << " winners out of " << NUM_FINALIST << " finalists";
 
-   finalistsSelected[0] = swansonUtil::RandomInRange(1, range);
-   range--;
 
-   for ( int i = 1 ; i < NUM_WINNERS ; ++i ) {
-      nextSelection = swansonUtil::RandomInRange(1, range);
-      range--;
-
-      selectionsList.clear();
-
-      for ( int j = 0 ; j < i ; j++ ) {
-         selectionsList.push_back(finalistsSelected[j]);
-      }
-
-      do {
-         int increment = 0;
-         while ( !selectionsList.empty()
-               && selectionsList.front() <= nextSelection ) {
-            increment++;
-            selectionsList.pop_front();
-         }
-         nextSelection += increment;
-      } while ( !selectionsList.empty()
-            && selectionsList.front() <= nextSelection );
-
-      insertElement(nextSelection, finalistsSelected, i);
-   }
+   swansonUtil::GetMappedRandomInts(finalistsSelected, range, NUM_WINNERS);
 
    cout << endl << "Finalist selected are: ";
    for ( int i = 0 ; i < NUM_WINNERS ; ++i ) {
       cout << finalistsSelected[i] << ((i < NUM_WINNERS - 1) ? ", " : "");
    }
-
 }
 
-bool finalistContains ( int finalistID , int finalistsSelected[] ,
-      int numSelectionsMade ) {
-   for ( int i = 0 ; i < numSelectionsMade ; i++ ) {
-      if ( finalistsSelected[i] == finalistID )
-         return true;
-   }
-   return false;
-}
-
-void insertElement ( int val , int sortArray[] , int numHolding ) {
-   int i = 0;
-   for ( ; i < numHolding ; i++ ) {
-      if ( val < sortArray[i] ) {
-         for ( int j = numHolding ; j > i ; j-- ) {
-            sortArray[j] = sortArray[j - 1];
-         }
-         break;
-      }
-   }
-   sortArray[i] = val;
-}
 
 //////////////////////////////////////////////
 ///PROBLEM SIX//////MILES PER GALLON//////////

@@ -77,16 +77,45 @@ int swansonUtil::RandomInRange ( int min , int max ) {
    return random;
 }
 
-/*
- void insertElement ( int val, int sortArray[], int numHolding){
- int i=0;
- for ( ; i < numHolding ; i++ ){
- if ( val < sortArray[i] ){
- for ( int j = numHolding ; j > i ; j-- ){
- sortArray[ j ] = sortArray [ j - 1 ];
- }
- break;
- }
- }
- sortArray [ i ] = val;
- }*/
+void swansonUtil::InsertElement ( int val , int sortArray[] , int numHolding ) {
+   int i = 0;
+   for ( ; i < numHolding ; i++ ) {
+      if ( val < sortArray[i] ) {
+         for ( int j = numHolding ; j > i ; j-- ) {
+            sortArray[j] = sortArray[j - 1];
+         }
+         break;
+      }
+   }
+   sortArray[i] = val;
+}
+
+void swansonUtil::GetMappedRandomInts ( int valuesOut[] , int range ,
+      const int numGenerateValues ) {
+   int nextSelection;
+   list<int> selectionsList;
+   valuesOut[0] = swansonUtil::RandomInRange(1, range);
+   range--;
+   for ( int i = 1 ; i < numGenerateValues ; ++i ) {
+      nextSelection = swansonUtil::RandomInRange(1, range);
+      range--;
+      selectionsList.clear();
+      for ( int j = 0 ; j < i ; j++ ) {
+         selectionsList.push_back(valuesOut[j]);
+      }
+      do {
+         int increment = 0;
+         while ( !selectionsList.empty()
+               && selectionsList.front() <= nextSelection ) {
+            increment++;
+            selectionsList.pop_front();
+         }
+         nextSelection += increment;
+      } while ( !selectionsList.empty()
+            && selectionsList.front() <= nextSelection );
+      swansonUtil::InsertElement(nextSelection, valuesOut, i);
+   }
+
+}
+
+
