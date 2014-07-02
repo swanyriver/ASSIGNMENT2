@@ -1,3 +1,19 @@
+/***********************************************************
+* Author: Brandon Swanson
+* Date Created: 06-29-2014
+* Last Modification Date: 07-01-2014
+* Filename: swansonString.cpp
+*
+* Overview:
+*
+* Input:
+*
+* Output:
+*
+***********************************************************/
+
+
+
 #include <string>
 #include <list>
 #include "myFunctions.h"

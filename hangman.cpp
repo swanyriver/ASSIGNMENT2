@@ -29,7 +29,7 @@ void ClearScreen ();
 //const int MAX_GUESSES = 10;
 const int MAX_WORD_LENGTH = 12;
 const int LENGTH_OF_ALPHABET = 26;
-const int CLEAR_SCREEN_CHAR_NUM = 6000*5;
+const int CLEAR_SCREEN_CHAR_NUM = 6000 * 5;
 
 string SecretWord;
 int maxGuesses;
@@ -73,6 +73,17 @@ int main () {
             || numLettersRevealed == numLettersInWord ) {
          cout << YOU_WIN;
       } else {
+         cout << MISSING <<
+         (((numLettersInWord - numLettersRevealed) > 1) ?
+         LETTER_PLURAL : LETTER);
+         for ( int i = 0 ; i < numLettersInWord ; i++ ) {
+            if ( !swansonUtil::Contains(lettersInSecretWord[i], lettersRevealed,
+                  numLettersRevealed) )
+               cout << lettersInSecretWord[i] << " ";
+         }
+
+         cout << WORD_REVEAL << SecretWord;
+
          cout << YOU_LOSE;
       }
 
@@ -90,6 +101,7 @@ void InitializeVars () {
 
    numLettersRevealed = 0;
    numGuessesMade = 0;
+   numLettersInWord = 0;
 
    numLettersRevealed = 0;
    for ( int i = 0 ; i < SecretWord.size() ; i++ ) { //set lettersInSecretWord[]
@@ -129,8 +141,12 @@ string PlayerTwoGuess () {
    string guessString;
    bool retry;
 
+   int guessesRemaining = maxGuesses - numGuessesMade;
+
    cout << GUESS_INSTR_STR;
-   cout << endl << NUM_GUESSES << maxGuesses - numGuessesMade;
+   cout << endl
+         <<( ( guessesRemaining > 1 )? NUM_GUESSES: NUM_GUESSES_SINGULAR )
+         << guessesRemaining;
 
    do {
       retry = false;
@@ -140,7 +156,8 @@ string PlayerTwoGuess () {
          guessString = swansonInput::GetOneWord(GUESS_PROMPT);
          guessString = swansonString::LowerCase(guessString);
          retry = true;
-      } while ( swansonUtil::Contains(guessString, guessesMade, numGuessesMade) );
+      } while ( swansonUtil::Contains(guessString, guessesMade,
+            numGuessesMade) );
    } while ( guessString.size() > 1
          && !swansonInput::yesNo( GUESS_CHECK + guessString + "\n") );
 

@@ -1,3 +1,19 @@
+/***********************************************************
+* Author: Brandon Swanson
+* Date Created: 06-29-2014
+* Last Modification Date: 07-01-2014
+* Filename: swansonUtils.cpp
+*
+* Overview:
+*
+* Input:
+*
+* Output:
+*
+***********************************************************/
+
+
+
 #include "myFunctions.h"
 #include <cstdlib>
 
