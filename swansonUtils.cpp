@@ -1,50 +1,28 @@
 #include "myFunctions.h"
 #include <cstdlib>
 
-bool swansonUtil::contains ( long int var , long int values[] , int range ) {
+bool swansonUtil::Contains ( long int var , long int values[] , int range ) {
    for ( int i = 0 ; i < range ; i++ ) {
       if ( values[i] == var )
          return true;
    }
    return false;
 }
-bool swansonUtil::contains ( int var , int values[] , int range ) {
+bool swansonUtil::Contains ( int var , int values[] , int range ) {
    for ( int i = 0 ; i < range ; i++ ) {
       if ( values[i] == var )
          return true;
    }
    return false;
 }
-bool swansonUtil::contains ( double var , double values[] , int range ) {
+bool swansonUtil::Contains ( double var , double values[] , int range ) {
    for ( int i = 0 ; i < range ; i++ ) {
       if ( values[i] == var )
          return true;
    }
    return false;
 }
-bool swansonUtil::contains ( float var , float values[] , int range ) {
-   for ( int i = 0 ; i < range ; i++ ) {
-      if ( values[i] == var )
-         return true;
-   }
-   return false;
-}
-
-bool swansonUtil::contains ( bool var , bool values[] , int range ) {
-   for ( int i = 0 ; i < range ; i++ ) {
-      if ( values[i] == var )
-         return true;
-   }
-   return false;
-}
-bool swansonUtil::contains ( string var , string values[] , int range ) {
-   for ( int i = 0 ; i < range ; i++ ) {
-      if ( values[i] == var )
-         return true;
-   }
-   return false;
-}
-bool swansonUtil::contains ( char var , char values[] , int range ) {
+bool swansonUtil::Contains ( float var , float values[] , int range ) {
    for ( int i = 0 ; i < range ; i++ ) {
       if ( values[i] == var )
          return true;
@@ -52,7 +30,29 @@ bool swansonUtil::contains ( char var , char values[] , int range ) {
    return false;
 }
 
-int swansonUtil::randomInRange ( int min , int max ) {
+bool swansonUtil::Contains ( bool var , bool values[] , int range ) {
+   for ( int i = 0 ; i < range ; i++ ) {
+      if ( values[i] == var )
+         return true;
+   }
+   return false;
+}
+bool swansonUtil::Contains ( string var , string values[] , int range ) {
+   for ( int i = 0 ; i < range ; i++ ) {
+      if ( values[i] == var )
+         return true;
+   }
+   return false;
+}
+bool swansonUtil::Contains ( char var , char values[] , int range ) {
+   for ( int i = 0 ; i < range ; i++ ) {
+      if ( values[i] == var )
+         return true;
+   }
+   return false;
+}
+
+int swansonUtil::RandomInRange ( int min , int max ) {
    int random;
    int range = max - min + 1;
    if ( range == 0 )

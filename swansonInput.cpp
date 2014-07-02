@@ -16,7 +16,7 @@ using std::endl;
 
 static const int MAX_ATTEMPTS = 6;
 
-string swansonInput::getString ( string prompt ) {
+string swansonInput::GetString ( string prompt ) {
 
    string str_rtrn = "";
 
@@ -36,7 +36,7 @@ string swansonInput::getString ( string prompt ) {
 
 }
 
-string swansonInput::getOneWord ( string prompt ) {
+string swansonInput::GetOneWord ( string prompt ) {
    string candaditeWord;
    bool retry = false;
 
@@ -45,14 +45,14 @@ string swansonInput::getOneWord ( string prompt ) {
          cout << RETRY_GET_WORD;
       }
 
-      candaditeWord = swansonInput::getString(prompt);
+      candaditeWord = swansonInput::GetString(prompt);
 
-      if ( swansonString::allLetters(candaditeWord) ) {
+      if ( swansonString::AllLetters(candaditeWord) ) {
          break;
       }
 
       list<string> seperatedWords;
-      swansonString::seperateWords(candaditeWord, seperatedWords);
+      swansonString::SeperateWords(candaditeWord, seperatedWords);
 
       string allLetterWord;
       string nextWord;
@@ -61,11 +61,11 @@ string swansonInput::getOneWord ( string prompt ) {
          nextWord = seperatedWords.front();
          seperatedWords.pop_front();
 
-         if ( swansonString::allLetters(nextWord) ) {
+         if ( swansonString::AllLetters(nextWord) ) {
             allLetterWord = nextWord;
          } else {
             for ( int i = 0 ; i < nextWord.size() ; i++ )
-               if ( swansonString::isALetter(nextWord.at(i)) )
+               if ( swansonString::IsALetter(nextWord.at(i)) )
                   allLetterWord += nextWord.at(i);
          }
       }
@@ -86,19 +86,19 @@ string swansonInput::getOneWord ( string prompt ) {
    return candaditeWord;
 }
 
-int swansonInput::getInt ( string prompt ) {
-   return getInt(prompt, INT_MIN, INT_MAX);
+int swansonInput::GetInt ( string prompt ) {
+   return GetInt(prompt, INT_MIN, INT_MAX);
 }
 
-int swansonInput::getInt ( string prompt , int rangeMax , int rangeMin ) {
-   return static_cast<int>(getLong(prompt, rangeMax, rangeMin));
+int swansonInput::GetInt ( string prompt , int rangeMax , int rangeMin ) {
+   return static_cast<int>(GetLong(prompt, rangeMax, rangeMin));
 }
 
-long int swansonInput::getLong ( string prompt ) {
-   return getLong(prompt, LONG_MIN, LONG_MAX);
+long int swansonInput::GetLong ( string prompt ) {
+   return GetLong(prompt, LONG_MIN, LONG_MAX);
 
 }
-long int swansonInput::getLong ( string prompt , long int rangeMin ,
+long int swansonInput::GetLong ( string prompt , long int rangeMin ,
       long int rangeMax ) {
    long int int_rtrn;
    int attempts = 0;
@@ -111,17 +111,17 @@ long int swansonInput::getLong ( string prompt , long int rangeMin ,
                << " - " << rangeMax << "]";
       }
       firstTimeThrough = false;
-      parse_string = swansonInput::getString(prompt);
+      parse_string = swansonInput::GetString(prompt);
 
       //TODO use errno or HUGE_VAL to check for overflow
       //TODO change to strtol
-      while ( !swansonString::allNumbers(parse_string) || parse_string.empty() ) {
+      while ( !swansonString::AllNumbers(parse_string) || parse_string.empty() ) {
          attempts++;
          if ( attempts > MAX_ATTEMPTS )
             return 0;
 
          cout << "lets try to restrain ourselves to only whole numbers";
-         parse_string = swansonInput::getString(prompt);
+         parse_string = swansonInput::GetString(prompt);
       }
 
       //int_rtrn = atol(parse_string.c_str());
@@ -138,18 +138,18 @@ long int swansonInput::getLong ( string prompt , long int rangeMin ,
 }
 
 //////////////////////////////////////////////floating point input ///////
-float swansonInput::getFloat ( string prompt ) {
-   return getFloat(prompt, FLT_MIN, FLT_MAX);
+float swansonInput::GetFloat ( string prompt ) {
+   return GetFloat(prompt, FLT_MIN, FLT_MAX);
 }
-float swansonInput::getFloat ( string prompt , float rangeMin ,
+float swansonInput::GetFloat ( string prompt , float rangeMin ,
       float rangeMax ) {
-   return static_cast<float>(getDouble(prompt, rangeMin, rangeMax));
+   return static_cast<float>(GetDouble(prompt, rangeMin, rangeMax));
 }
-double swansonInput::getDouble ( string prompt ) {
-   return getDouble(prompt, DBL_MIN, DBL_MAX);
+double swansonInput::GetDouble ( string prompt ) {
+   return GetDouble(prompt, DBL_MIN, DBL_MAX);
 
 }
-double swansonInput::getDouble ( string prompt , double rangeMin ,
+double swansonInput::GetDouble ( string prompt , double rangeMin ,
       double rangeMax ) {
    double double_rtrn;
    int attempts = 0;
@@ -162,10 +162,10 @@ double swansonInput::getDouble ( string prompt , double rangeMin ,
                << " - " << rangeMax << "]";
       }
       firstTimeThrough = false;
-      parse_string = swansonInput::getString(prompt);
+      parse_string = swansonInput::GetString(prompt);
 
       //TODO use errno or HUGE_VAL to check for overflow
-      while ( !swansonString::allNumbersFloat(parse_string)
+      while ( !swansonString::AllNumbersFloat(parse_string)
             || parse_string.empty() ) {
          attempts++;
          if ( attempts > MAX_ATTEMPTS )
@@ -173,7 +173,7 @@ double swansonInput::getDouble ( string prompt , double rangeMin ,
 
          cout << "lets try to restrain ourselves to only"
                << "valid floating point numbers";
-         parse_string = swansonInput::getString(prompt);
+         parse_string = swansonInput::GetString(prompt);
       }
 
       double_rtrn = strtod(parse_string.c_str(), NULL);
@@ -190,8 +190,8 @@ bool swansonInput::yesNo ( string prompt ) {
    string yesNoStr;
 
    for ( int i = 0 ; i < MAX_ATTEMPTS ; i++ ) { //give them X trys at  input
-      yesNoStr = swansonInput::getString(prompt + " (y/n)?:");
-      yesNoStr = swansonString::lowerCase(yesNoStr);
+      yesNoStr = swansonInput::GetString(prompt + " (y/n)?:");
+      yesNoStr = swansonString::LowerCase(yesNoStr);
 
       if ( yesNoStr == "y" || yesNoStr == "yes" )
          return true;

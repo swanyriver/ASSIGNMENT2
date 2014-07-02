@@ -23,13 +23,13 @@
 
 using namespace std;
 
-void oneLetterAtATime ( string my_str );
-void formatName ();
-void randomNumbers ();
-void compareStringsManually ();
-void betterRandom ();
-void milesPerGallon ();
-void selectFinalist ();
+void OneLetterAtATime ( string my_str );
+void FormatName ();
+void RandomNumbers ();
+void CompareStringsManually ();
+void BetterRandom ();
+void MilesPerGallon ();
+void SelectFinalist ();
 
 int main () {
    const int NUMBER_OF_SELECTIONS = 7;
@@ -55,7 +55,7 @@ int main () {
                << "[8] DEMONSTRATE ALL FUNCTIONS (from 1-7)" << endl
                << "[9] QUIT THIS PROGRAM";
 
-         selectionNumber = swansonInput::getInt("choose by number:", 1,
+         selectionNumber = swansonInput::GetInt("choose by number:", 1,
                NUMBER_OF_SELECTIONS + 2);
       }
 
@@ -72,32 +72,32 @@ int main () {
          switch (selectionNumber) {
          case 1:
             prompt = "print more strings";
-            oneLetterAtATime(
-                  swansonInput::getString("please enter a string: "));
+            OneLetterAtATime(
+                  swansonInput::GetString("please enter a string: "));
             break;
          case 2:
             prompt = "format more names";
-            formatName();
+            FormatName();
             break;
          case 3:
             prompt = "make more random numbers";
-            randomNumbers();
+            RandomNumbers();
             break;
          case 4:
             prompt = "compare more strings";
-            compareStringsManually();
+            CompareStringsManually();
             break;
          case 5:
             prompt = "make more random numbers";
-            betterRandom();
+            BetterRandom();
             break;
          case 6:
             prompt = "calculate more mileages";
-            milesPerGallon();
+            MilesPerGallon();
             break;
          case 7:
             prompt = "select more finalists";
-            selectFinalist();
+            SelectFinalist();
             break;
          default:
             selectionNumber = QUIT;
@@ -117,7 +117,7 @@ bool finalistContains ( int finalistID , int finalistsSelected[] ,
       int numSelectionsMade );
 void insertElement ( int val , int sortArray[] , int numHolding );
 
-void selectFinalist () {
+void SelectFinalist () {
    const int NUM_FINALIST = 25;
    const int NUM_WINNERS = 4;
    int finalistsSelected[NUM_WINNERS];
@@ -128,11 +128,11 @@ void selectFinalist () {
    cout << endl << "We are about to select " << NUM_WINNERS
          << " winners out of " << NUM_FINALIST << " finalists";
 
-   finalistsSelected[0] = swansonUtil::randomInRange(1, range);
+   finalistsSelected[0] = swansonUtil::RandomInRange(1, range);
    range--;
 
    for ( int i = 1 ; i < NUM_WINNERS ; ++i ) {
-      nextSelection = swansonUtil::randomInRange(1, range);
+      nextSelection = swansonUtil::RandomInRange(1, range);
       range--;
 
       selectionsList.clear();
@@ -189,14 +189,14 @@ void insertElement ( int val , int sortArray[] , int numHolding ) {
 //////////////////////////////////////////////
 const float GALLON_PER_LITER = 0.264179;
 float milesPerGallon ( float littersUsed , float milesTraveled );
-void milesPerGallon () {
+void MilesPerGallon () {
 
    cout << "This piece of code will tell you how many miles per gallon"
          << "your car gets \nif you measure your gas consumption in litters";
 
-   float milesTraveled = swansonInput::getFloat(
+   float milesTraveled = swansonInput::GetFloat(
          "How many miles did you travel (xx.xx):");
-   float littersUsed = swansonInput::getFloat(
+   float littersUsed = swansonInput::GetFloat(
          "How many litters of gas did you use (xx.xx):");
    float milesPerGallonAchieved = milesPerGallon(littersUsed, milesTraveled);
 
@@ -220,16 +220,16 @@ float milesPerGallon ( float littersUsed , float milesTraveled ) {
 ///PROBLEM FIVE/////BETTER RANDOM NUMBERS/////
 //////////////////////////////////////////////
 
-void betterRandom () {
+void BetterRandom () {
    int min, max;
    int myRandom;
 
    cout << "Tell me a range and I will give you a random number!";
-   min = swansonInput::getInt("What is the lowest number allowed:");
-   max = swansonInput::getInt("What is the highest number allowed:", min,
+   min = swansonInput::GetInt("What is the lowest number allowed:");
+   max = swansonInput::GetInt("What is the highest number allowed:", min,
    INT_MAX);
 
-   myRandom = swansonUtil::randomInRange(min, max);
+   myRandom = swansonUtil::RandomInRange(min, max);
 
    cout << endl << "The random number generated is:" << myRandom;
 }
@@ -239,13 +239,13 @@ void betterRandom () {
 //////////////////////////////////////////////
 bool compare ( string stringOne , string stringTwo );
 
-void compareStringsManually () {
+void CompareStringsManually () {
    string stringInOne, stringInTwo;
    cout << endl << "this little peice of code is going to check two strings"
          << "Letter-by-Letter";
 
-   stringInOne = swansonInput::getString("Give me a string:");
-   stringInTwo = swansonInput::getString("Ok, now give me another:");
+   stringInOne = swansonInput::GetString("Give me a string:");
+   stringInTwo = swansonInput::GetString("Ok, now give me another:");
 
    if ( compare(stringInOne, stringInTwo) ) {
       cout << endl << "these strings are the same";
@@ -270,7 +270,7 @@ bool compare ( string stringOne , string stringTwo ) {
 ///PROBLEM THREE/////RANDOM NUMBERS///
 //////////////////////////////////////
 
-void randomNumbers () {
+void RandomNumbers () {
 
    cout << "here are some random numbers (0-99): ";
    for ( int i = 0 ; i < 10 ; i++ ) {
@@ -285,7 +285,7 @@ void randomNumbers () {
 
 string getProperName ();
 
-void formatName () {
+void FormatName () {
    //formatName local Variables
    list<string> namesSeperated;
    string fullNameUnformated;
@@ -293,12 +293,12 @@ void formatName () {
    char middleInitial;
 
    fullNameUnformated = getProperName();
-   swansonString::seperateWords(fullNameUnformated, namesSeperated);
+   swansonString::SeperateWords(fullNameUnformated, namesSeperated);
 
    while ( !(namesSeperated.size() == 2 || namesSeperated.size() == 3) ) {
       cout << endl << "It seems you have given me too few or too many names";
       fullNameUnformated = getProperName();
-      swansonString::seperateWords(fullNameUnformated, namesSeperated);
+      swansonString::SeperateWords(fullNameUnformated, namesSeperated);
    }
 
    if ( namesSeperated.size() == 2 ) {
@@ -326,11 +326,11 @@ string getProperName () {
    char permitedChars[] = { ' ', '.' };
    string name;
 
-   name = swansonInput::getString("Please tell me your full name: ");
+   name = swansonInput::GetString("Please tell me your full name: ");
 
-   while ( !swansonString::allLetters(name, permitedChars, 2) ) {
+   while ( !swansonString::AllLetters(name, permitedChars, 2) ) {
       cout << "Im sorry, try to keep it to only letters";
-      name = swansonInput::getString("Please tell me your full name: ");
+      name = swansonInput::GetString("Please tell me your full name: ");
    }
 
    return name;
@@ -341,7 +341,7 @@ string getProperName () {
 ///PROBLEM ONE////////////////////////
 //////////////////////////////////////
 
-void oneLetterAtATime ( string my_str ) {
+void OneLetterAtATime ( string my_str ) {
 
    /********************************************************
     ******Function Paramater-ized for ease of encapsulation
@@ -377,14 +377,14 @@ void oneLetterAtATime ( string my_str ) {
 
    int numLetters = 0;
    for ( int i = 0 ; i < my_str.length() ; i++ ) {
-      if ( swansonString::isALetter(my_str.at(i)) ) {
+      if ( swansonString::IsALetter(my_str.at(i)) ) {
          numLetters++;
       }
    }
    cout << endl << "this string has " << numLetters << " letters" << endl;
 
    cout << "by a loop this string"
-         << ((swansonString::allLetters(my_str) ? " is " : " is not "))
+         << ((swansonString::AllLetters(my_str) ? " is " : " is not "))
          << "all letters";
    cout << endl << "by a length comparison this string"
          << ((my_str.length() == numLetters ? " is " : " is not "))
