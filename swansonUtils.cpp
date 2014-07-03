@@ -14,7 +14,7 @@
 
 #include "myFunctions.h"
 #include <cstdlib>
-
+#include <ctime>
 
 bool swansonUtil::Contains ( long int var , long int values[] , int range ) {
    for ( int i = 0 ; i < range ; i++ ) {
@@ -67,6 +67,10 @@ bool swansonUtil::Contains ( char var , char values[] , int range ) {
          return true;
    }
    return false;
+}
+
+void swansonUtil::SeedRandom () {
+   srand ( time ( 0 ) );
 }
 
 int swansonUtil::GetRandomInRange ( int max ) {

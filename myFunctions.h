@@ -52,6 +52,7 @@ public:
    static bool Contains ( string var , string values[] , int range );
    static bool Contains ( char var , char values[] , int range );
    //TODO add overload bool for seeded random
+   static void SeedRandom ();
    static int GetRandomInRange ( int max );
    static int GetRandomInRange ( int min , int max );
    static void InsertElement ( int val , int sortArray[] , int numHolding );

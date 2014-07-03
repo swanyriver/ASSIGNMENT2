@@ -40,6 +40,8 @@ int main () {
    int selectionNumber;
    string prompt;
 
+   swansonUtil::SeedRandom();
+
    cout << "int max: " << INT_MAX << endl;
    cout << "welcome to assignment 2 exercise components, "
          << "I have a great variety of functionality to show you";
