@@ -15,6 +15,7 @@
 #include "myFunctions.h"
 #include <cstdlib>
 
+
 bool swansonUtil::Contains ( long int var , long int values[] , int range ) {
    for ( int i = 0 ; i < range ; i++ ) {
       if ( values[i] == var )
@@ -51,6 +52,7 @@ bool swansonUtil::Contains ( bool var , bool values[] , int range ) {
    }
    return false;
 }
+
 bool swansonUtil::Contains ( string var , string values[] , int range ) {
    for ( int i = 0 ; i < range ; i++ ) {
       if ( values[i] == var )
@@ -58,6 +60,7 @@ bool swansonUtil::Contains ( string var , string values[] , int range ) {
    }
    return false;
 }
+
 bool swansonUtil::Contains ( char var , char values[] , int range ) {
    for ( int i = 0 ; i < range ; i++ ) {
       if ( values[i] == var )
@@ -67,15 +70,16 @@ bool swansonUtil::Contains ( char var , char values[] , int range ) {
 }
 
 int swansonUtil::GetRandomInRange ( int max ) {
-   return GetRandomInRange(0, max);
+   return GetRandomInRange ( 0 , max );
 }
 
 int swansonUtil::GetRandomInRange ( int min , int max ) {
+
    int random;
    int range = max - min + 1;
    if ( range == 0 )
       return min;
-   random = (rand() % range) + min;
+   random = (rand () % range) + min;
    return random;
 }
 
@@ -96,26 +100,27 @@ void swansonUtil::GetMappedRandomInts ( int valuesOut[] , int rangeBegining ,
       int rangeEnd , const int numGenerateValues ) {
    int nextSelection;
    list<int> selectionsList;
-   valuesOut[0] = swansonUtil::GetRandomInRange(rangeBegining, rangeEnd);
+   valuesOut[0] = swansonUtil::GetRandomInRange ( rangeBegining , rangeEnd );
    rangeEnd--;
    for ( int i = 1 ; i < numGenerateValues ; ++i ) {
-      nextSelection = swansonUtil::GetRandomInRange(rangeBegining, rangeEnd);
+      nextSelection = swansonUtil::GetRandomInRange ( rangeBegining ,
+            rangeEnd );
       rangeEnd--;
-      selectionsList.clear();
+      selectionsList.clear ();
       for ( int j = 0 ; j < i ; j++ ) {
-         selectionsList.push_back(valuesOut[j]);
+         selectionsList.push_back ( valuesOut[j] );
       }
       do {
          int increment = 0;
-         while ( !selectionsList.empty()
-               && selectionsList.front() <= nextSelection ) {
+         while ( !selectionsList.empty ()
+               && selectionsList.front () <= nextSelection ) {
             increment++;
-            selectionsList.pop_front();
+            selectionsList.pop_front ();
          }
          nextSelection += increment;
-      } while ( !selectionsList.empty()
-            && selectionsList.front() <= nextSelection );
-      swansonUtil::InsertElement(nextSelection, valuesOut, i);
+      } while ( !selectionsList.empty ()
+            && selectionsList.front () <= nextSelection );
+      swansonUtil::InsertElement ( nextSelection , valuesOut , i );
    }
 
 }
