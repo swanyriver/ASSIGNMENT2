@@ -1,2 +1,0 @@
-hellomake: swansonString.cpp swansonUtils.cpp swansonInput.cpp testMapping.cpp
-	g++ swansonString.cpp swansonUtils.cpp swansonInput.cpp testMapping.cpp -o test && ./test

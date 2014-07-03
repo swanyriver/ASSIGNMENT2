@@ -119,14 +119,14 @@ void SelectFinalist () {
    const int NUM_FINALIST = 25;
    const int NUM_WINNERS = 4;
    int finalistsSelected[NUM_WINNERS];
-   int range = NUM_FINALIST;
+
 
 
    cout << endl << "We are about to select " << NUM_WINNERS
          << " winners out of " << NUM_FINALIST << " finalists";
 
 
-   swansonUtil::GetMappedRandomInts(finalistsSelected, range, NUM_WINNERS);
+   swansonUtil::GetMappedRandomInts(finalistsSelected, 1 , NUM_FINALIST , NUM_WINNERS);
 
    cout << endl << "Finalist selected are: ";
    for ( int i = 0 ; i < NUM_WINNERS ; ++i ) {

@@ -1,18 +1,16 @@
 /***********************************************************
-* Author: Brandon Swanson
-* Date Created: 06-29-2014
-* Last Modification Date: 07-01-2014
-* Filename: swansonUtils.cpp
-*
-* Overview:
-*
-* Input:
-*
-* Output:
-*
-***********************************************************/
-
-
+ * Author: Brandon Swanson
+ * Date Created: 06-29-2014
+ * Last Modification Date: 07-01-2014
+ * Filename: swansonUtils.cpp
+ *
+ * Overview:
+ *
+ * Input:
+ *
+ * Output:
+ *
+ ***********************************************************/
 
 #include "myFunctions.h"
 #include <cstdlib>
@@ -69,7 +67,7 @@ bool swansonUtil::Contains ( char var , char values[] , int range ) {
 }
 
 int swansonUtil::GetRandomInRange ( int max ) {
-   return GetRandomInRange( 0 , max );
+   return GetRandomInRange(0, max);
 }
 
 int swansonUtil::GetRandomInRange ( int min , int max ) {
@@ -94,15 +92,15 @@ void swansonUtil::InsertElement ( int val , int sortArray[] , int numHolding ) {
    sortArray[i] = val;
 }
 
-void swansonUtil::GetMappedRandomInts ( int valuesOut[] , int range ,
-      const int numGenerateValues ) {
+void swansonUtil::GetMappedRandomInts ( int valuesOut[] , int rangeBegining ,
+      int rangeEnd , const int numGenerateValues ) {
    int nextSelection;
    list<int> selectionsList;
-   valuesOut[0] = swansonUtil::GetRandomInRange(1, range);
-   range--;
+   valuesOut[0] = swansonUtil::GetRandomInRange(rangeBegining, rangeEnd);
+   rangeEnd--;
    for ( int i = 1 ; i < numGenerateValues ; ++i ) {
-      nextSelection = swansonUtil::GetRandomInRange(1, range);
-      range--;
+      nextSelection = swansonUtil::GetRandomInRange(rangeBegining, rangeEnd);
+      rangeEnd--;
       selectionsList.clear();
       for ( int j = 0 ; j < i ; j++ ) {
          selectionsList.push_back(valuesOut[j]);
@@ -121,5 +119,4 @@ void swansonUtil::GetMappedRandomInts ( int valuesOut[] , int range ,
    }
 
 }
-
 
