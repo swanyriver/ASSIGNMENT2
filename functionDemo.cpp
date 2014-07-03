@@ -180,7 +180,7 @@ void BetterRandom () {
    max = swansonInput::GetInt("What is the highest number allowed:", min,
    INT_MAX);
 
-   myRandom = swansonUtil::RandomInRange(min, max);
+   myRandom = swansonUtil::GetRandomInRange(min, max);
 
    cout << endl << "The random number generated is:" << myRandom;
 }

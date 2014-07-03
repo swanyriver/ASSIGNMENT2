@@ -68,7 +68,11 @@ bool swansonUtil::Contains ( char var , char values[] , int range ) {
    return false;
 }
 
-int swansonUtil::RandomInRange ( int min , int max ) {
+int swansonUtil::GetRandomInRange ( int max ) {
+   return GetRandomInRange( 0 , max );
+}
+
+int swansonUtil::GetRandomInRange ( int min , int max ) {
    int random;
    int range = max - min + 1;
    if ( range == 0 )
@@ -94,10 +98,10 @@ void swansonUtil::GetMappedRandomInts ( int valuesOut[] , int range ,
       const int numGenerateValues ) {
    int nextSelection;
    list<int> selectionsList;
-   valuesOut[0] = swansonUtil::RandomInRange(1, range);
+   valuesOut[0] = swansonUtil::GetRandomInRange(1, range);
    range--;
    for ( int i = 1 ; i < numGenerateValues ; ++i ) {
-      nextSelection = swansonUtil::RandomInRange(1, range);
+      nextSelection = swansonUtil::GetRandomInRange(1, range);
       range--;
       selectionsList.clear();
       for ( int j = 0 ; j < i ; j++ ) {

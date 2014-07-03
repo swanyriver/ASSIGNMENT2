@@ -130,7 +130,7 @@ string PlayerOnePickWord () {
 void ClearScreen () {
    char randChar;
    for ( int i = 0 ; i < CLEAR_SCREEN_CHAR_NUM ; i++ ) {
-      randChar = swansonUtil::RandomInRange('A', 'Z');
+      randChar = swansonUtil::GetRandomInRange('A', 'Z');
       cout << randChar;
    }
 
