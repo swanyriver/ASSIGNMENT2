@@ -1,2 +1,0 @@
-hellomake: swansonString.cpp swansonUtils.cpp swansonInput.cpp functionDemo.cpp
-	g++ swansonString.cpp swansonUtils.cpp swansonInput.cpp functionDemo.cpp -o main && ./main
