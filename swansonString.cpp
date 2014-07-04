@@ -4,11 +4,8 @@
  * Last Modification Date: 07-01-2014
  * Filename: swansonString.cpp
  *
- * Overview:
- *
- * Input:
- *
- * Output:
+ * Overview: A collection of static methods designed to process and
+ *           modify strings
  *
  ***********************************************************/
 
@@ -18,6 +15,13 @@
 
 using namespace std;
 
+/******************************************************************************
+ *    purpose: determines if a char is a letter
+ *
+ *    entry: none
+ *
+ *    exit: true if char is [a-z] or [A-Z]
+ ******************************************************************************/
 bool swansonString::IsALetter ( char character ) {
    if ( (character >= 'a' && character <= 'z')
          || (character >= 'A' && character <= 'Z') )
@@ -26,6 +30,13 @@ bool swansonString::IsALetter ( char character ) {
       return false;
 }
 
+/******************************************************************************
+ *    purpose: determines if a char is a number
+ *
+ *    entry: none
+ *
+ *    exit: true if char is [0-9]
+ ******************************************************************************/
 bool swansonString::IsANumber ( char character ) {
    if ( character >= '0' && character <= '9' )
       return true;
@@ -33,122 +44,176 @@ bool swansonString::IsANumber ( char character ) {
       return false;
 }
 
+/******************************************************************************
+ *    purpose: determines if a string represents a whole number, using IsANumber
+ *
+ *    entry: none
+ *
+ *    exit: true if all chars in string are [0-9]
+ ******************************************************************************/
 bool swansonString::AllNumbers ( string numberString ) {
    int i = 0;
-   if ( numberString.length () > 1 && numberString.at ( 0 ) == '-' ) {
+   //allow for negative numbers
+   if ( numberString.length() > 1 && numberString.at( 0 ) == '-' ) {
       i++;
    }
-   for ( ; i < numberString.length () ; i++ ) {
-      if ( !IsANumber ( numberString.at ( i ) ) )
+   for ( ; i < numberString.length() ; i++ ) {
+      if ( !IsANumber( numberString.at( i ) ) )
          return false;
    }
    return true;
 }
 
+/******************************************************************************
+ *    purpose: determines if a string represents a float point number
+ *
+ *    entry: non void string
+ *
+ *    exit: true if all chars are numeric and contains 0 or 1 '.'
+ ******************************************************************************/
 bool swansonString::AllNumbersFloat ( string numberString ) {
    string tempString;
-   int numDots = 0;
-   int dotLocation;
+   int numDots = 0; // num '.' in string
+   int dotLocation; // position of '.' in string
 
-   for ( int i = 0 ; i < numberString.length () ; i++ ) {
-      if ( numberString.at ( i ) == '.' ) {
+   for ( int i = 0 ; i < numberString.length() ; i++ ) {
+      if ( numberString.at( i ) == '.' ) {
          numDots++;
          dotLocation = i;
       }
    }
    if ( numDots > 1 )
-      return false;
+      return false; //not valid float number
    else if ( numDots == 0 )
-      return AllNumbers ( numberString );
-   else if ( numDots == 1 ) {
-      for ( int i = 0 ; i < numberString.length () ; i++ ) {
+      return AllNumbers( numberString );
+   else if ( numDots == 1 ) { //remove '.' and check if all else is numeric
+      for ( int i = 0 ; i < numberString.length() ; i++ ) {
          if ( i != dotLocation )
-            tempString += numberString.at ( i );
+            tempString += numberString.at( i );
       }
-      return AllNumbers ( tempString );
+      return AllNumbers( tempString );
    }
 
    return false;
 }
 
+/******************************************************************************
+ *    purpose: determines if a string is comprised of only letters
+ *             using IsALetter
+ *
+ *    entry: non void string
+ *
+ *    exit: true if all chars are [a-z] or [A-Z]
+ ******************************************************************************/
 bool swansonString::AllLetters ( string letterString ) {
-   for ( int i = 0 ; i < letterString.length () ; i++ ) {
-      if ( !IsALetter ( letterString.at ( i ) ) )
+   for ( int i = 0 ; i < letterString.length() ; i++ ) {
+      if ( !IsALetter( letterString.at( i ) ) )
          return false;
    }
    return true;
 }
+
+/******************************************************************************
+ *    purpose: determines if a string is comprised of only letters and the
+ *             characters in permitedChars
+ *
+ *    entry: non void string
+ *
+ *    exit: true if the string is alpha chars or the permitedChars
+ ******************************************************************************/
 bool swansonString::AllLetters ( string letterString , char permitedChars[] ,
       int arraySize ) {
 
    bool isAPermitedChar;
 
-   for ( int i = 0 ; i < letterString.length () ; i++ ) {
+   for ( int i = 0 ; i < letterString.length() ; i++ ) {
       isAPermitedChar = false;
 
       for ( int j = 0 ; j < arraySize ; j++ ) {
-         if ( letterString.at ( i ) == permitedChars[j] ) {
+         if ( letterString.at( i ) == permitedChars[j] ) {
             isAPermitedChar = true;
          }
       }
 
-      if ( !(IsALetter ( letterString.at ( i ) ) || isAPermitedChar) ) {
+      if ( !(IsALetter( letterString.at( i ) ) || isAPermitedChar) ) {
          return false;
       }
    }
    return true;
 }
 
+/******************************************************************************
+ *     purpose: create a list of individual words using anything other than
+ *             alpha as a separation token
+ *
+ *    entry: non void string, empty list seperateWords
+ *
+ *    exit: seperateWords will contain strings of only alpha characters
+ ******************************************************************************/
 void swansonString::SeperateWords ( string myString ,
       list<string>& seperateWords ) {
    string currentWord;
 
-   seperateWords.clear ();
+   seperateWords.clear();
 
    int i = 0;
-   while ( i < myString.length ()
-         && !swansonString::IsALetter ( myString.at ( i ) ) )
+   while ( i < myString.length()
+         && !swansonString::IsALetter( myString.at( i ) ) )
       i++; //find first letter;
 
-   while ( i < myString.length () ) {
-      if ( swansonString::IsALetter ( myString.at ( i ) ) ) {
-         currentWord += myString.at ( i );
+   while ( i < myString.length() ) {
+      if ( swansonString::IsALetter( myString.at( i ) ) ) {
+         currentWord += myString.at( i );
          i++;
       } else {
-         if ( !currentWord.empty () )
-            seperateWords.push_back ( currentWord );
-         currentWord.clear ();
-         while ( i < myString.length ()
-               && !swansonString::IsALetter ( myString.at ( i ) ) )
+         if ( !currentWord.empty() )
+            seperateWords.push_back( currentWord );
+         currentWord.clear();
+         while ( i < myString.length()
+               && !swansonString::IsALetter( myString.at( i ) ) )
             i++; //find next letter;
       }
    }
-   if ( !currentWord.empty () )
-      seperateWords.push_back ( currentWord );
+   if ( !currentWord.empty() )
+      seperateWords.push_back( currentWord );
 
 }
 
+/******************************************************************************
+ *   purpose: convert all letters in string to lower case
+ *
+ *    entry: non void string
+ *
+ *    exit: string with any alpha chars between [a-z]
+ ******************************************************************************/
 string swansonString::LowerCase ( string caseString ) {
    string lowerCaseString = "";
-   for ( int i = 0 ; i < caseString.length () ; i++ ) {
-      if ( swansonString::IsALetter ( caseString.at ( i ) ) ) {
-         if ( caseString.at ( i ) >= 'A' && caseString.at ( i ) <= 'Z' ) {
-            lowerCaseString += (caseString.at ( i ) + ('a' - 'A'));
+   for ( int i = 0 ; i < caseString.length() ; i++ ) {
+      if ( swansonString::IsALetter( caseString.at( i ) ) ) {
+         if ( caseString.at( i ) >= 'A' && caseString.at( i ) <= 'Z' ) {
+            lowerCaseString += (caseString.at( i ) + ('a' - 'A'));
          } else
-            lowerCaseString += caseString.at ( i );
+            lowerCaseString += caseString.at( i );
       }
    }
    return lowerCaseString;
 }
 
+/******************************************************************************
+ *   purpose: convert all letters in string to upper case
+ *
+ *    entry: non void string
+ *
+ *    exit: string with any alpha chars between [A-Z]
+ ******************************************************************************/
 string swansonString::UpperCase ( string caseString ) {
    string upperCaseString = "";
-   for ( int i = 0 ; i < caseString.length () ; i++ ) {
-      if ( swansonString::IsALetter ( caseString.at ( i ) ) ) {
-         if ( caseString.at ( i ) >= 'a' && caseString.at ( i ) <= 'z' ) {
-            upperCaseString += (caseString.at ( i ) + ('A' - 'a'));
+   for ( int i = 0 ; i < caseString.length() ; i++ ) {
+      if ( swansonString::IsALetter( caseString.at( i ) ) ) {
+         if ( caseString.at( i ) >= 'a' && caseString.at( i ) <= 'z' ) {
+            upperCaseString += (caseString.at( i ) + ('A' - 'a'));
          } else
-            upperCaseString += caseString.at ( i );
+            upperCaseString += caseString.at( i );
       }
    }
    return upperCaseString;

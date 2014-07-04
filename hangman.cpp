@@ -19,14 +19,24 @@
 
 using namespace std;
 
+//reset variables for each game
 void InitializeVars ();
+
+//get a word from player one
 string PlayerOnePickWord ();
+
+//get a guess letter or word from player two
 string PlayerTwoGuess ();
+
+//analyze guess made
 void ProcessGuess ( string guessString );
+
+//output correct letters to player
 void PrintResults ();
+
+//somewhat obscure secret word input
 void ClearScreen ();
 
-//const int MAX_GUESSES = 10;
 const int MAX_WORD_LENGTH = 12;
 const int LENGTH_OF_ALPHABET = 26;
 const int CLEAR_SCREEN_CHAR_NUM = 6000 * 5;
@@ -43,20 +53,20 @@ int numLettersInWord; //distinct letters
 int main () {
 
    do { //restart game
-      InitializeVars ();
+      InitializeVars();
 
-      ClearScreen ();
+      ClearScreen();
 
       do { // make guesses
-         string guessString = PlayerTwoGuess ();
+         string guessString = PlayerTwoGuess();
          guessesMade[numGuessesMade] = guessString;
          numGuessesMade++;
 
-         ProcessGuess ( guessString );
+         ProcessGuess( guessString );
 
          if ( !(guessString == SecretWord
                || numLettersRevealed == numLettersInWord) ) {
-            PrintResults ();
+            PrintResults();
          }
 
          /////debug string////////
@@ -78,7 +88,7 @@ int main () {
          LETTER_PLURAL :
                                                           LETTER);
          for ( int i = 0 ; i < numLettersInWord ; i++ ) {
-            if ( !swansonUtil::Contains ( lettersInSecretWord[i] ,
+            if ( !swansonUtil::Contains( lettersInSecretWord[i] ,
                   lettersRevealed , numLettersRevealed ) )
                cout << lettersInSecretWord[i] << " ";
          }
@@ -88,17 +98,28 @@ int main () {
          cout << YOU_LOSE;
       }
 
-   } while ( swansonInput::yesNo ( PLAY_AGAIN_STR ) );
+   } while ( swansonInput::yesNo( PLAY_AGAIN_STR ) );
 
    cout << endl << GOODBYE_STR << endl;
 
    return 0;
 }
 
-void InitializeVars () {
-   SecretWord = PlayerOnePickWord ();
+/**************************************************************
+ *
+ * Entry: none
+ *
+ * Exit: counter values reset to 0, a secret word, number of guesses allowd
+ *       letters in word counted and array filled
+ *
+ * Purpose: to reset the data structure for the playing of a new game
+ *
+ * ***************************************************************/
 
-   maxGuesses = swansonInput::GetInt ( MAX_GUESSES_STR , 1 ,
+void InitializeVars () {
+   SecretWord = PlayerOnePickWord();
+
+   maxGuesses = swansonInput::GetInt( MAX_GUESSES_STR , 1 ,
          LENGTH_OF_ALPHABET );
 
    numLettersRevealed = 0;
@@ -106,39 +127,67 @@ void InitializeVars () {
    numLettersInWord = 0;
 
    numLettersRevealed = 0;
-   for ( int i = 0 ; i < SecretWord.size () ; i++ ) { //set lettersInSecretWord[]
-      if ( !swansonUtil::Contains ( SecretWord.at ( i ) , lettersInSecretWord ,
+   for ( int i = 0 ; i < SecretWord.size() ; i++ ) { //set lettersInSecretWord[]
+      if ( !swansonUtil::Contains( SecretWord.at( i ) , lettersInSecretWord ,
             numLettersInWord ) ) {
-         lettersInSecretWord[numLettersInWord] = SecretWord.at ( i );
+         lettersInSecretWord[numLettersInWord] = SecretWord.at( i );
          numLettersInWord++;
       }
    }
 
 }
+
+/**************************************************************
+ *
+ * Entry:none
+ *
+ * Exit:a string of all alpha chars no spaces
+ *
+ * Purpose: to get the word to be used for the guessing game from player 1
+ *
+ * ***************************************************************/
 string PlayerOnePickWord () {
 
    string secretString;
-   secretString = swansonInput::GetOneWord ( ENTER_WORD_STR );
+   secretString = swansonInput::GetOneWord( ENTER_WORD_STR );
 
-   while ( secretString.size () > MAX_WORD_LENGTH ) {
+   while ( secretString.size() > MAX_WORD_LENGTH ) {
       cout << endl << TOO_LONG;
-      secretString = swansonInput::GetOneWord ( ENTER_WORD_STR );
+      secretString = swansonInput::GetOneWord( ENTER_WORD_STR );
    }
 
-   secretString = swansonString::LowerCase ( secretString );
+   secretString = swansonString::LowerCase( secretString );
    return secretString;
 }
 
+/**************************************************************
+ *
+ * Entry: none
+ *
+ * Exit: a series of random letters sent to output stream
+ *
+ * Purpose: obscure the entered secret word
+ *
+ * ***************************************************************/
 void ClearScreen () {
    char randChar;
    for ( int i = 0 ; i < CLEAR_SCREEN_CHAR_NUM ; i++ ) {
-      randChar = swansonUtil::GetRandomInRange ( 'A' , 'Z' );
+      randChar = swansonUtil::GetRandomInRange( 'A' , 'Z' );
       cout << randChar;
    }
 
    cout << endl << endl;
 }
 
+/**************************************************************
+ *
+ * Entry: none
+ *
+ * Exit: a string of all letters no spaces
+ *
+ * Purpose: to get a guess from player 2
+ *
+ * ***************************************************************/
 string PlayerTwoGuess () {
    string guessString;
    bool retry;
@@ -154,37 +203,56 @@ string PlayerTwoGuess () {
       do {
          if ( retry )
             cout << ENTERED_BEFORE;
-         guessString = swansonInput::GetOneWord ( GUESS_PROMPT );
-         guessString = swansonString::LowerCase ( guessString );
+         guessString = swansonInput::GetOneWord( GUESS_PROMPT );
+         guessString = swansonString::LowerCase( guessString );
          retry = true;
-      } while ( swansonUtil::Contains ( guessString , guessesMade ,
+      } while ( swansonUtil::Contains( guessString , guessesMade ,
             numGuessesMade ) );
-   } while ( guessString.size () > 1
-         && !swansonInput::yesNo ( GUESS_CHECK + guessString + "\n" ) );
+   } while ( guessString.size() > 1
+         && !swansonInput::yesNo( GUESS_CHECK + guessString + "\n" ) );
 
    return guessString;
 
 }
 
+/**************************************************************
+ *
+ * Entry: a single character
+ *
+ * Exit: if letter is in word its added to lettersRevealed
+ *       and numLettersRevealed incremented
+ *
+ * Purpose: determine successful guesses
+ *
+ * ***************************************************************/
 void ProcessGuess ( string guessString ) {
 
-   if ( guessString.size () == 1 ) {
+   if ( guessString.size() == 1 ) {
       //check character
-      if ( swansonUtil::Contains ( guessString.at ( 0 ) , lettersInSecretWord ,
+      if ( swansonUtil::Contains( guessString.at( 0 ) , lettersInSecretWord ,
             numLettersInWord ) ) {
-         lettersRevealed[numLettersRevealed] = guessString.at ( 0 );
+         lettersRevealed[numLettersRevealed] = guessString.at( 0 );
          numLettersRevealed++;
       }
    }
 
 }
 
+/**************************************************************
+ *
+ * Entry: none
+ *
+ * Exit: outputs the letters reveled in the secret word and guesses remaining
+ *
+ * Purpose: inform player 2 of his status in the game
+ *
+ * ***************************************************************/
 void PrintResults () {
    cout << endl << STILL_WRONG << endl << STRING_HINT << endl;
-   for ( int i = 0 ; i < SecretWord.size () ; i++ ) {
+   for ( int i = 0 ; i < SecretWord.size() ; i++ ) {
       cout << " ";
-      char cursorChar = SecretWord.at ( i );
-      if ( swansonUtil::Contains ( cursorChar , lettersRevealed ,
+      char cursorChar = SecretWord.at( i );
+      if ( swansonUtil::Contains( cursorChar , lettersRevealed ,
             numLettersRevealed ) ) {
          cout << cursorChar;
       } else

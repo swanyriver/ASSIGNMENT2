@@ -1,21 +1,24 @@
 /***********************************************************
  * Author: Brandon Swanson
  * Date Created: 06-29-2014
- * Last Modification Date: 07-01-2014
+ * Last Modification Date: 07-03-2014
  * Filename: swansonUtils.cpp
  *
- * Overview:
- *
- * Input:
- *
- * Output:
- *
+ * Overview: A collections of array and random number utility functions
  ***********************************************************/
 
 #include "myFunctions.h"
 #include <cstdlib>
 #include <ctime>
 
+/******************************************************************************
+ *    purpose: determins if the array values of size range contains the item var
+ *             for types: bool, int, long, double, float, char, string
+ *
+ *    entry: an array of size range
+ *
+ *    exit: true if the array values[] has at least one instance of var
+******************************************************************************/
 bool swansonUtil::Contains ( long int var , long int values[] , int range ) {
    for ( int i = 0 ; i < range ; i++ ) {
       if ( values[i] == var )
@@ -69,24 +72,52 @@ bool swansonUtil::Contains ( char var , char values[] , int range ) {
    return false;
 }
 
+/******************************************************************************
+ *    purpose: seeds the random number generator creating non repeatable output
+ *
+ *    entry: none
+ *
+ *    exit: rand() is seeded with time()
+******************************************************************************/
 void swansonUtil::SeedRandom () {
-   srand ( time ( 0 ) );
+   srand( time( NULL ) );
 }
 
+/******************************************************************************
+ *    purpose:produce a random number
+ *
+ *    entry: none
+ *
+ *    exit: random int in range [0,max]
+******************************************************************************/
 int swansonUtil::GetRandomInRange ( int max ) {
-   return GetRandomInRange ( 0 , max );
+   return GetRandomInRange( 0 , max );
 }
 
+/******************************************************************************
+ *    purpose:produce a random number
+ *
+ *    entry: none
+ *
+ *    exit: random int in range [min,max]
+******************************************************************************/
 int swansonUtil::GetRandomInRange ( int min , int max ) {
 
    int random;
    int range = max - min + 1;
    if ( range == 0 )
       return min;
-   random = (rand () % range) + min;
+   random = (rand() % range) + min;
    return random;
 }
 
+/******************************************************************************
+ *    purpose: to insert an element into an array preserving sorted order
+ *
+ *    entry: sorted array
+ *
+ *    exit: a sorted array with additional element val
+******************************************************************************/
 void swansonUtil::InsertElement ( int val , int sortArray[] , int numHolding ) {
    int i = 0;
    for ( ; i < numHolding ; i++ ) {
@@ -100,31 +131,42 @@ void swansonUtil::InsertElement ( int val , int sortArray[] , int numHolding ) {
    sortArray[i] = val;
 }
 
+/******************************************************************************
+ *    purpose: produce an amount (numGeneratedValues) of numbers across a given
+ *             range avoiding duplicate values
+ *
+ *    entry: empty array
+ *
+ *    exit: a sorted array of non repeated random values
+******************************************************************************/
 void swansonUtil::GetMappedRandomInts ( int valuesOut[] , int rangeBegining ,
       int rangeEnd , const int numGenerateValues ) {
+
    int nextSelection;
    list<int> selectionsList;
-   valuesOut[0] = swansonUtil::GetRandomInRange ( rangeBegining , rangeEnd );
+
+   //first value doesnt need special consideration
+   valuesOut[0] = swansonUtil::GetRandomInRange( rangeBegining , rangeEnd );
    rangeEnd--;
+
    for ( int i = 1 ; i < numGenerateValues ; ++i ) {
-      nextSelection = swansonUtil::GetRandomInRange ( rangeBegining ,
-            rangeEnd );
+      nextSelection = swansonUtil::GetRandomInRange( rangeBegining , rangeEnd );
       rangeEnd--;
-      selectionsList.clear ();
+      selectionsList.clear();
       for ( int j = 0 ; j < i ; j++ ) {
-         selectionsList.push_back ( valuesOut[j] );
+         selectionsList.push_back( valuesOut[j] );
       }
       do {
          int increment = 0;
-         while ( !selectionsList.empty ()
-               && selectionsList.front () <= nextSelection ) {
+         while ( !selectionsList.empty()
+               && selectionsList.front() <= nextSelection ) {
             increment++;
-            selectionsList.pop_front ();
+            selectionsList.pop_front();
          }
          nextSelection += increment;
-      } while ( !selectionsList.empty ()
-            && selectionsList.front () <= nextSelection );
-      swansonUtil::InsertElement ( nextSelection , valuesOut , i );
+      } while ( !selectionsList.empty()
+            && selectionsList.front() <= nextSelection );
+      swansonUtil::InsertElement( nextSelection , valuesOut , i );
    }
 
 }
